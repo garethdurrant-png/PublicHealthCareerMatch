@@ -5,7 +5,8 @@
       "type": "multiselect",
       "max_select": 3,
       "required": true,
-      "prompt": "Which public-health functions feel most meaningful? (Pick up to 3)",
+      "prompt": "Which of the following essential public health functions (EPHFs) best describe your work interests?"
+
       "maps_to": "ephf",
       "options": [
         { "id": "ephf01", "label": "Public health surveillance and monitoring" },
