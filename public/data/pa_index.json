@@ -2,12 +2,39 @@
   "pa19": {
     "title": "Analysing and interpreting data, information and evidence",
     "tasks_by_profile": {
-      "profile1_core_ph": [],
-      "profile2_health_care": [],
-      "profile3_allied": [],
-      "profile4_senior_specialist": [],
-      "profile5_policy_authority": []
+      "profile1_core_ph": [
+        "<<<PASTE verbatim tasks for Profile 1 (Core public health personnel) under PA19>>>"
+      ],
+      "profile2_health_care": [
+        "<<<PASTE verbatim tasks for Profile 2 (Health and care workers) under PA19>>>"
+      ],
+      "profile3_allied": [
+        "<<<PASTE verbatim tasks for Profile 3 (Occupations allied to health) under PA19>>>"
+      ],
+      "profile4_senior_specialist": [
+        "<<<PASTE verbatim tasks for Profile 4 (Senior specialists) under PA19>>>"
+      ],
+      "profile5_policy_authority": [
+        "<<<PASTE verbatim tasks for Profile 5 (Policy authorities) under PA19>>>"
+      ]
     },
-    "curricular_guide": []
+    "curricular_guide": [
+      {
+        "id": "pa19_cg_001",
+        "text": "<<<PASTE a curricular item exactly as written under PA19’s Curricular guide>>>",
+        "profiles": { "1": true, "2": false, "3": false, "4": true, "5": true }
+      },
+      {
+        "id": "pa19_cg_002",
+        "text": "<<<Next curricular item>>>",
+        "profiles": { "1": true, "2": true, "3": false, "4": true, "5": false }
+      },
+      {
+        "id": "pa19_cg_003",
+        "text": "<<<Next curricular item>>>",
+        "profiles": { "1": false, "2": true, "3": true, "4": false, "5": false }
+      }
+      /* add as many as needed — keep ids unique, keep text verbatim */
+    ]
   }
 }
