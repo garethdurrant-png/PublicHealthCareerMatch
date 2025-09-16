@@ -1,0 +1,16 @@
+:root{--bg:#fafafa;--card:#fff;--border:#e6e6e6;--text:#111;--accent:#0a0a0a}
+*{box-sizing:border-box}
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;margin:0;background:var(--bg);color:var(--text)}
+main{max-width:840px;margin:48px auto;padding:0 20px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin:16px 0}
+h1,h2{margin:0 0 12px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.chip{padding:8px 12px;border:1px solid #bbb;border-radius:999px;background:#fff;cursor:pointer}
+.chip.active{border-color:var(--accent);font-weight:600}
+.actions{margin-top:16px;display:flex;gap:8px}
+.btn{padding:10px 16px;border:0;border-radius:8px;background:var(--accent);color:#fff;cursor:pointer}
+.btn.secondary{background:#eee;color:#111}
+.progress{font-size:14px;color:#555;margin-bottom:8px}
+.result{padding:12px 0;border-top:1px solid var(--border)}
+.bar{height:8px;background:#ddd;border-radius:6px;overflow:hidden}
+.bar>span{display:block;height:100%}
