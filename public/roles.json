@@ -3,87 +3,80 @@
     {
       "role_id": "ROLE_SURV",
       "title": "Public Health Surveillance Officer",
-      "ephf_weights": { "ephf01": 1.0, "ephf06": 0.6 },
+      "profiles": ["profile1_core_ph", "profile2_health_care", "profile3_allied", "profile4_senior_specialist"],
+      "ephf_weights": { "ephf01": 1.0, "ephf06": 0.6, "ephf11": 0.6 },
       "ephf_weights_labels": {
         "ephf01": "Public health surveillance and monitoring",
-        "ephf06": "Disease prevention and early detection"
+        "ephf06": "Disease prevention and early detection",
+        "ephf11": "Public health research, evaluation and knowledge"
       },
-      "practice_activity_weights": { "pa10": 0.8, "pa11": 0.8, "pa16": 1.0, "pa19": 1.0, "pa20": 0.6 },
-      "competency_requirements": {},
-      "context": { "role_style": ["ic"] }
+      "practice_activity_weights": { "pa10": 0.8, "pa11": 0.8, "pa16": 1.0, "pa19": 1.0, "pa20": 0.6, "pa29": 0.4 }
     },
+
     {
       "role_id": "ROLE_PROMO",
       "title": "Health Promotion Practitioner",
+      "profiles": ["profile1_core_ph", "profile2_health_care", "profile3_allied", "profile4_senior_specialist"],
       "ephf_weights": { "ephf07": 1.0, "ephf08": 0.6 },
       "ephf_weights_labels": {
         "ephf07": "Health promotion",
         "ephf08": "Community engagement and social participation"
       },
-      "practice_activity_weights": { "pa26": 0.8, "pa27": 0.8, "pa28": 1.0, "pa22": 0.6, "pa29": 0.4 },
-      "competency_requirements": {},
-      "context": { "role_style": ["ic"] }
+      "practice_activity_weights": { "pa26": 0.8, "pa27": 0.8, "pa28": 1.0, "pa21": 0.8, "pa22": 0.6, "pa29": 0.4 }
     },
+
     {
       "role_id": "ROLE_EM",
       "title": "Emergency Preparedness Coordinator",
+      "profiles": ["profile4_senior_specialist", "profile5_policy_authority", "profile1_core_ph", "profile2_health_care"],
       "ephf_weights": { "ephf02": 1.0, "ephf05": 0.6 },
       "ephf_weights_labels": {
         "ephf02": "Public health emergency management",
         "ephf05": "Health protection"
       },
-      "practice_activity_weights": { "pa15": 0.8, "pa17": 0.8, "pa36": 1.0, "pa37": 0.8, "pa38": 1.0, "pa40": 0.6 },
-      "competency_requirements": {},
-      "context": { "role_style": ["lead", "ic"] }
+      "practice_activity_weights": { "pa15": 0.8, "pa17": 0.8, "pa36": 1.0, "pa37": 0.8, "pa38": 1.0, "pa40": 0.6 }
     },
+
     {
       "role_id": "ROLE_POLICY",
       "title": "Policy & Planning Officer",
+      "profiles": ["profile5_policy_authority", "profile4_senior_specialist", "profile3_allied"],
       "ephf_weights": { "ephf03": 0.8, "ephf04": 1.0, "ephf10": 0.4 },
       "ephf_weights_labels": {
         "ephf03": "Public health stewardship",
-        "ephf04": "Multisectoral planning, financing and management",
+        "ephf04": "Multisectoral planning, financing and management for public health",
         "ephf10": "Health service quality and equity"
       },
-      "practice_activity_weights": { "pa03": 0.8, "pa04": 1.0, "pa05": 0.6, "pa22": 0.8, "pa23": 0.6, "pa31": 0.4 },
-      "competency_requirements": {},
-      "context": { "role_style": ["lead"] }
+      "practice_activity_weights": { "pa03": 0.8, "pa04": 1.0, "pa05": 0.6, "pa22": 0.8, "pa23": 0.6, "pa31": 0.4 }
     },
+
     {
       "role_id": "ROLE_CE",
       "title": "Community Engagement Officer",
+      "profiles": ["profile1_core_ph", "profile2_health_care", "profile3_allied"],
       "ephf_weights": { "ephf08": 1.0, "ephf07": 0.6 },
       "ephf_weights_labels": {
         "ephf08": "Community engagement and social participation",
         "ephf07": "Health promotion"
       },
-      "practice_activity_weights": { "pa21": 1.0, "pa23": 0.8, "pa24": 0.8, "pa27": 0.8, "pa28": 0.6 },
-      "competency_requirements": {},
-      "context": { "role_style": ["ic"] }
+      "practice_activity_weights": { "pa21": 1.0, "pa23": 0.8, "pa24": 0.8, "pa27": 0.8, "pa28": 0.6 }
     },
+
     {
       "role_id": "ROLE_SUPPLY",
       "title": "Health Products & Supply Chain Specialist",
+      "profiles": ["profile3_allied", "profile1_core_ph", "profile4_senior_specialist"],
       "ephf_weights": { "ephf12": 1.0, "ephf04": 0.4 },
       "ephf_weights_labels": {
         "ephf12": "Access to and utilization of health products, supplies, equipment and technologies",
-        "ephf04": "Multisectoral planning, financing and management"
+        "ephf04": "Multisectoral planning, financing and management for public health"
       },
-      "practice_activity_weights": { "pa08": 1.0, "pa31": 0.8, "pa32": 0.8, "pa33": 0.6 },
-      "competency_requirements": {},
-      "context": { "role_style": ["ic"] }
+      "practice_activity_weights": { "pa08": 1.0, "pa31": 0.8, "pa32": 0.8, "pa33": 0.6, "pa09": 0.4 }
     },
+
     {
       "role_id": "ROLE_QUALITY",
       "title": "Quality & Equity Advisor",
+      "profiles": ["profile4_senior_specialist", "profile5_policy_authority", "profile1_core_ph"],
       "ephf_weights": { "ephf10": 1.0, "ephf03": 0.4 },
       "ephf_weights_labels": {
-        "ephf10": "Health service quality and equity",
-        "ephf03": "Public health stewardship"
-      },
-      "practice_activity_weights": { "pa29": 1.0, "pa30": 0.8, "pa33": 0.4 },
-      "competency_requirements": {},
-      "context": { "role_style": ["lead", "ic"] }
-    }
-  ]
-}
