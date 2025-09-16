@@ -1,5 +1,4 @@
 {
-  "weights":       { "ephf": 0.45, "practice": 0.30, "competency": 0.20, "context_bonus": 0.05 },
-  "skip_weights":  { "ephf": 0.55, "practice": 0.15, "competency": 0.25, "context_bonus": 0.05 },
-  "gates_behavior": "soft"
+  "weights":      { "ephf": 0.40, "practice": 0.25, "competency": 0.20, "profile": 0.10, "context_bonus": 0.05 },
+  "skip_weights": { "ephf": 0.50, "practice": 0.10, "competency": 0.25, "profile": 0.10, "context_bonus": 0.05 }
 }
