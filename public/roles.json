@@ -1,286 +1,285 @@
 {
   "roles": [
-    // -------- Profile 1: Core public health personnel --------
     {
       "id": "chief_public_health_officer",
-      "label": "Chief public health officer",
-      "profiles": ["4","1"],
-      "ephf": ["ephf03","ephf04","ephf09","ephf10"],
-      "blurb": "Senior public-health leadership role focused on stewardship, planning and workforce/quality."
+      "title": "Chief public health officer",
+      "profiles": ["profile4_senior_specialist", "profile5_policy_authority"],
+      "ephf_weights": { "ephf03": 3, "ephf04": 3, "ephf10": 2, "ephf05": 1 },
+      "pa_weights":   { "pa01": 3, "pa03": 2, "pa04": 3, "pa05": 3, "pa06": 2, "pa07": 2, "pa29": 1, "pa30": 2 }
     },
     {
       "id": "district_surveillance_officer",
-      "label": "District surveillance officer",
-      "profiles": ["1"],
-      "ephf": ["ephf01","ephf02","ephf11"],
-      "blurb": "Leads local surveillance and contributes to rapid risk assessment and response."
+      "title": "District surveillance officer",
+      "profiles": ["profile1_core_ph"],
+      "ephf_weights": { "ephf01": 3, "ephf02": 2, "ephf11": 1 },
+      "pa_weights":   { "pa16": 3, "pa17": 2, "pa18": 2, "pa19": 2, "pa20": 1, "pa38": 1 }
     },
     {
       "id": "epidemiologist",
-      "label": "Epidemiologist",
-      "profiles": ["1"],
-      "ephf": ["ephf01","ephf11","ephf02"],
-      "blurb": "Designs/analyses studies and surveillance for population health."
+      "title": "Epidemiologist",
+      "profiles": ["profile1_core_ph", "profile4_senior_specialist"],
+      "ephf_weights": { "ephf01": 3, "ephf02": 2, "ephf11": 2, "ephf10": 1 },
+      "pa_weights":   { "pa10": 1, "pa11": 2, "pa12": 2, "pa13": 1, "pa14": 2, "pa16": 3, "pa18": 2, "pa19": 3, "pa20": 1, "pa17": 1 }
     },
     {
       "id": "environmental_occupational_health_personnel",
-      "label": "Environmental and occupational health personnel",
-      "profiles": ["1"],
-      "ephf": ["ephf05","ephf06"],
-      "blurb": "Protects health via environmental/occupational hazard control."
+      "title": "Environmental and occupational health personnel",
+      "profiles": ["profile1_core_ph", "profile3_allied"],
+      "ephf_weights": { "ephf05": 3, "ephf10": 2, "ephf12": 1 },
+      "pa_weights":   { "pa05": 2, "pa09": 3, "pa27": 1, "pa28": 1, "pa33": 2 }
     },
     {
       "id": "public_health_educator",
-      "label": "Public health educator",
-      "profiles": ["1"],
-      "ephf": ["ephf07","ephf08"],
-      "blurb": "Promotes health literacy and community participation."
+      "title": "Public health educator",
+      "profiles": ["profile1_core_ph"],
+      "ephf_weights": { "ephf07": 3, "ephf08": 2, "ephf09": 1, "ephf11": 1 },
+      "pa_weights":   { "pa27": 3, "pa28": 3, "pa23": 2, "pa24": 2, "pa35": 3 }
     },
     {
       "id": "public_health_manager",
-      "label": "Public health manager",
-      "profiles": ["1"],
-      "ephf": ["ephf03","ephf04","ephf10"],
-      "blurb": "Oversees public-health programmes, resources and quality."
+      "title": "Public health manager",
+      "profiles": ["profile1_core_ph", "profile4_senior_specialist"],
+      "ephf_weights": { "ephf03": 2, "ephf04": 3, "ephf10": 2 },
+      "pa_weights":   { "pa01": 2, "pa03": 2, "pa04": 2, "pa06": 3, "pa07": 3, "pa31": 2, "pa32": 2, "pa34": 2, "pa30": 2 }
     },
     {
       "id": "public_health_researcher",
-      "label": "Public health researcher",
-      "profiles": ["1"],
-      "ephf": ["ephf11","ephf01"],
-      "blurb": "Generates and synthesizes evidence for public-health action."
+      "title": "Public health researcher",
+      "profiles": ["profile1_core_ph"],
+      "ephf_weights": { "ephf11": 3, "ephf01": 2 },
+      "pa_weights":   { "pa10": 2, "pa11": 2, "pa12": 2, "pa13": 2, "pa14": 2, "pa19": 3, "pa20": 2 }
     },
     {
       "id": "sanitarian",
-      "label": "Sanitarian",
-      "profiles": ["1"],
-      "ephf": ["ephf05","ephf10"],
-      "blurb": "Inspects and enforces environmental/public-health protections."
+      "title": "Sanitarian",
+      "profiles": ["profile1_core_ph", "profile3_allied"],
+      "ephf_weights": { "ephf05": 3, "ephf10": 1 },
+      "pa_weights":   { "pa05": 2, "pa09": 3, "pa33": 2 }
     },
 
-    // -------- Profile 2: Health and care workers --------
+    // Health & care workers
     {
       "id": "biomedical_engineer",
-      "label": "Biomedical engineer",
-      "profiles": ["2"],
-      "ephf": ["ephf12","ephf10"],
-      "blurb": "Supports safe, equitable access to health technologies."
+      "title": "Biomedical engineer",
+      "profiles": ["profile2_health_care"],
+      "ephf_weights": { "ephf12": 3, "ephf10": 2 },
+      "pa_weights":   { "pa08": 3, "pa33": 2, "pa32": 2, "pa09": 2 }
     },
     {
       "id": "community_health_worker",
-      "label": "Community health worker",
-      "profiles": ["2"],
-      "ephf": ["ephf07","ephf06","ephf08"],
-      "blurb": "Links communities to prevention, promotion and services."
+      "title": "Community health worker",
+      "profiles": ["profile2_health_care"],
+      "ephf_weights": { "ephf07": 3, "ephf08": 3, "ephf06": 2 },
+      "pa_weights":   { "pa27": 3, "pa28": 2, "pa24": 2, "pa25": 2, "pa39": 1 }
     },
     {
       "id": "dentist",
-      "label": "Dentist",
-      "profiles": ["2"],
-      "ephf": ["ephf06","ephf07"],
-      "blurb": "Delivers prevention, early detection and health promotion for oral health."
+      "title": "Dentist",
+      "profiles": ["profile2_health_care"],
+      "ephf_weights": { "ephf06": 2, "ephf07": 1, "ephf10": 2 },
+      "pa_weights":   { "pa25": 3, "pa28": 1, "pa30": 2 }
     },
     {
       "id": "medical_doctor",
-      "label": "Medical doctor",
-      "profiles": ["2"],
-      "ephf": ["ephf06","ephf10","ephf02"],
-      "blurb": "Provides clinical prevention/early detection and supports emergency response."
+      "title": "Medical doctor",
+      "profiles": ["profile2_health_care"],
+      "ephf_weights": { "ephf06": 3, "ephf10": 2, "ephf02": 1 },
+      "pa_weights":   { "pa25": 3, "pa39": 2, "pa38": 1, "pa29": 1 }
     },
     {
-      "id": "lab_technician_medical_pathology",
-      "label": "Medical and pathology laboratory technician",
-      "profiles": ["2"],
-      "ephf": ["ephf06","ephf01","ephf11"],
-      "blurb": "Runs tests for case detection, surveillance and research."
-    },
-    {
-      "id": "nursing_personnel",
-      "label": "Nursing personnel",
-      "profiles": ["2"],
-      "ephf": ["ephf06","ephf10","ephf08"],
-      "blurb": "Delivers prevention, care quality and person-centred services."
+      "id": "lab_technician",
+      "title": "Medical and pathology laboratory technician",
+      "profiles": ["profile2_health_care"],
+      "ephf_weights": { "ephf01": 2, "ephf11": 2, "ephf12": 1 },
+      "pa_weights":   { "pa14": 3, "pa16": 2, "pa19": 2, "pa33": 1 }
     },
     {
       "id": "midwifery_personnel",
-      "label": "Midwifery personnel",
-      "profiles": ["2"],
-      "ephf": ["ephf06","ephf10","ephf07"],
-      "blurb": "Prevention, early detection and quality of maternal/newborn care."
+      "title": "Midwifery personnel",
+      "profiles": ["profile2_health_care"],
+      "ephf_weights": { "ephf06": 3, "ephf10": 2, "ephf07": 1 },
+      "pa_weights":   { "pa25": 3, "pa27": 1, "pa29": 1, "pa30": 2 }
+    },
+    {
+      "id": "nursing_personnel",
+      "title": "Nursing personnel",
+      "profiles": ["profile2_health_care"],
+      "ephf_weights": { "ephf06": 3, "ephf10": 2, "ephf02": 1 },
+      "pa_weights":   { "pa25": 3, "pa39": 2, "pa30": 2 }
     },
     {
       "id": "paramedical_personnel",
-      "label": "Paramedical personnel",
-      "profiles": ["2"],
-      "ephf": ["ephf02","ephf06"],
-      "blurb": "Pre-hospital care and emergency response support."
+      "title": "Paramedical personnel",
+      "profiles": ["profile2_health_care"],
+      "ephf_weights": { "ephf02": 3, "ephf06": 2 },
+      "pa_weights":   { "pa38": 3, "pa39": 3, "pa40": 2 }
     },
     {
       "id": "pharmacist",
-      "label": "Pharmacist",
-      "profiles": ["2"],
-      "ephf": ["ephf12","ephf05","ephf10"],
-      "blurb": "Assures access to safe, quality health products."
+      "title": "Pharmacist",
+      "profiles": ["profile2_health_care"],
+      "ephf_weights": { "ephf12": 3, "ephf06": 2, "ephf10": 1 },
+      "pa_weights":   { "pa08": 3, "pa33": 2, "pa27": 1 }
     },
     {
       "id": "social_work_counselling_personnel",
-      "label": "Social work and counselling personnel",
-      "profiles": ["2"],
-      "ephf": ["ephf08","ephf07","ephf10"],
-      "blurb": "Supports equity, engagement and well-being."
+      "title": "Social work and counselling personnel",
+      "profiles": ["profile2_health_care"],
+      "ephf_weights": { "ephf07": 2, "ephf08": 3, "ephf10": 1 },
+      "pa_weights":   { "pa23": 2, "pa24": 3, "pa27": 2 }
     },
     {
-      "id": "traditional_complementary_medicine_personnel",
-      "label": "Traditional and complementary medicine personnel",
-      "profiles": ["2"],
-      "ephf": ["ephf07","ephf06"],
-      "blurb": "Provides culturally rooted health promotion and preventive care."
+      "id": "traditional_complementary_medicine",
+      "title": "Traditional and complementary medicine personnel",
+      "profiles": ["profile2_health_care"],
+      "ephf_weights": { "ephf07": 2, "ephf06": 2, "ephf08": 1 },
+      "pa_weights":   { "pa27": 2, "pa28": 2, "pa25": 2 }
     },
 
-    // -------- Profile 3: Occupations allied to health --------
+    // Occupations allied to health
     {
       "id": "animal_health_personnel",
-      "label": "Animal health personnel",
-      "profiles": ["3"],
-      "ephf": ["ephf01","ephf05"],
-      "blurb": "One-Health collaboration for zoonoses surveillance and protection."
+      "title": "Animal health personnel",
+      "profiles": ["profile3_allied"],
+      "ephf_weights": { "ephf01": 2, "ephf05": 2, "ephf02": 1 },
+      "pa_weights":   { "pa16": 2, "pa17": 2, "pa18": 2, "pa05": 1 }
     },
     {
-      "id": "urban_planning_personnel",
-      "label": "Urban planning personnel",
-      "profiles": ["3"],
-      "ephf": ["ephf04","ephf07"],
-      "blurb": "Designs healthy, safe and equitable built environments."
-    },
-    {
-      "id": "water_sanitation_hygiene_personnel",
-      "label": "Water, sanitation and hygiene personnel",
-      "profiles": ["3"],
-      "ephf": ["ephf05","ephf10"],
-      "blurb": "Secures safe water/sanitation as health protection."
-    },
-    {
-      "id": "food_supply_chain_food_safety_personnel",
-      "label": "Food supply chain and food safety personnel",
-      "profiles": ["3"],
-      "ephf": ["ephf05","ephf10"],
-      "blurb": "Protects population health via safe food systems."
-    },
-    {
-      "id": "transport_personnel",
-      "label": "Transport personnel",
-      "profiles": ["3"],
-      "ephf": ["ephf02","ephf12"],
-      "blurb": "Enables emergency logistics and continuity of services."
-    },
-    {
-      "id": "road_safety_personnel",
-      "label": "Road safety personnel",
-      "profiles": ["3"],
-      "ephf": ["ephf05","ephf07"],
-      "blurb": "Prevents injury and promotes safer mobility."
-    },
-    {
-      "id": "civil_defense_disaster_management_personnel",
-      "label": "Civil defense and disaster management personnel",
-      "profiles": ["3"],
-      "ephf": ["ephf02"],
-      "blurb": "Plans and coordinates emergency preparedness and response."
+      "id": "civil_defense_disaster_management",
+      "title": "Civil defense and disaster management personnel",
+      "profiles": ["profile3_allied"],
+      "ephf_weights": { "ephf02": 3 },
+      "pa_weights":   { "pa36": 2, "pa37": 3, "pa38": 3, "pa40": 2 }
     },
     {
       "id": "climate_scientist",
-      "label": "Climate scientist",
-      "profiles": ["3"],
-      "ephf": ["ephf11","ephf04"],
-      "blurb": "Generates evidence to inform multisectoral risk planning."
+      "title": "Climate scientist",
+      "profiles": ["profile3_allied"],
+      "ephf_weights": { "ephf05": 2, "ephf01": 2, "ephf07": 1 },
+      "pa_weights":   { "pa18": 2, "pa19": 2, "pa26": 1 }
     },
     {
       "id": "economist",
-      "label": "Economist",
-      "profiles": ["3"],
-      "ephf": ["ephf04","ephf06"],
-      "blurb": "Supports planning/financing and resource allocation for public health."
+      "title": "Economist",
+      "profiles": ["profile3_allied"],
+      "ephf_weights": { "ephf04": 3 },
+      "pa_weights":   { "pa06": 3, "pa31": 2 }
     },
     {
-      "id": "public_works_housing_personnel",
-      "label": "Public works and housing personnel",
-      "profiles": ["3"],
-      "ephf": ["ephf04","ephf05"],
-      "blurb": "Builds healthy housing and infrastructure."
+      "id": "food_supply_safety_personnel",
+      "title": "Food supply chain and food safety personnel",
+      "profiles": ["profile3_allied"],
+      "ephf_weights": { "ephf05": 3, "ephf12": 2 },
+      "pa_weights":   { "pa05": 3, "pa08": 2, "pa09": 2, "pa33": 2 }
     },
     {
       "id": "microbiology_parasitology_specialist",
-      "label": "Microbiology and parasitology specialist",
-      "profiles": ["3","2"],
-      "ephf": ["ephf06","ephf01","ephf11"],
-      "blurb": "Laboratory expertise for detection, surveillance and research."
+      "title": "Microbiology and parasitology specialist",
+      "profiles": ["profile3_allied"],
+      "ephf_weights": { "ephf01": 2, "ephf11": 2, "ephf12": 1 },
+      "pa_weights":   { "pa14": 3, "pa16": 2, "pa19": 2 }
+    },
+    {
+      "id": "public_works_housing_personnel",
+      "title": "Public works and housing personnel",
+      "profiles": ["profile3_allied"],
+      "ephf_weights": { "ephf04": 2, "ephf05": 1 },
+      "pa_weights":   { "pa33": 3, "pa32": 2, "pa04": 1 }
+    },
+    {
+      "id": "road_safety_personnel",
+      "title": "Road safety personnel",
+      "profiles": ["profile3_allied"],
+      "ephf_weights": { "ephf05": 3 },
+      "pa_weights":   { "pa05": 2, "pa28": 2 }
+    },
+    {
+      "id": "transport_personnel",
+      "title": "Transport personnel",
+      "profiles": ["profile3_allied"],
+      "ephf_weights": { "ephf02": 2, "ephf12": 2 },
+      "pa_weights":   { "pa08": 3, "pa38": 2 }
+    },
+    {
+      "id": "urban_planning_personnel",
+      "title": "Urban planning personnel",
+      "profiles": ["profile3_allied"],
+      "ephf_weights": { "ephf04": 3, "ephf05": 1 },
+      "pa_weights":   { "pa03": 2, "pa04": 2, "pa33": 2 }
+    },
+    {
+      "id": "wash_personnel",
+      "title": "Water, sanitation and hygiene personnel",
+      "profiles": ["profile3_allied"],
+      "ephf_weights": { "ephf05": 3 },
+      "pa_weights":   { "pa33": 3, "pa09": 2 }
     },
 
-    // -------- Profile 4: Senior specialists --------
+    // Senior specialists
     {
       "id": "chief_nursing_midwifery_officer",
-      "label": "Chief nursing and midwifery officer",
-      "profiles": ["4"],
-      "ephf": ["ephf03","ephf09","ephf10"],
-      "blurb": "Provides strategic leadership for nursing/midwifery services."
+      "title": "Chief nursing and midwifery officer",
+      "profiles": ["profile4_senior_specialist"],
+      "ephf_weights": { "ephf04": 2, "ephf10": 2, "ephf09": 2 },
+      "pa_weights":   { "pa07": 3, "pa30": 2, "pa34": 3, "pa31": 2 }
     },
     {
-      "id": "emergency_medical_team_leader",
-      "label": "Emergency medical team leader",
-      "profiles": ["4"],
-      "ephf": ["ephf02","ephf10"],
-      "blurb": "Leads coordinated emergency operations and quality of response."
+      "id": "emt_leader",
+      "title": "Emergency medical team leader",
+      "profiles": ["profile4_senior_specialist"],
+      "ephf_weights": { "ephf02": 3 },
+      "pa_weights":   { "pa36": 2, "pa37": 3, "pa38": 3, "pa39": 2, "pa40": 2 }
     },
     {
       "id": "facility_manager",
-      "label": "Facility manager",
-      "profiles": ["4"],
-      "ephf": ["ephf10","ephf12"],
-      "blurb": "Ensures quality services, infrastructure and supplies."
+      "title": "Facility manager",
+      "profiles": ["profile4_senior_specialist"],
+      "ephf_weights": { "ephf04": 3, "ephf10": 2 },
+      "pa_weights":   { "pa31": 3, "pa32": 3, "pa33": 3, "pa30": 2 }
     },
     {
       "id": "industry_company_manager",
-      "label": "Industry or company manager",
-      "profiles": ["4","3"],
-      "ephf": ["ephf05","ephf04"],
-      "blurb": "Implements occupational and environmental health protections."
+      "title": "Industry or company manager",
+      "profiles": ["profile4_senior_specialist"],
+      "ephf_weights": { "ephf04": 3, "ephf05": 1 },
+      "pa_weights":   { "pa31": 3, "pa32": 3, "pa33": 2, "pa05": 1 }
     },
     {
       "id": "public_health_specialist",
-      "label": "Public health specialist",
-      "profiles": ["4","1"],
-      "ephf": ["ephf03","ephf04","ephf01","ephf11"],
-      "blurb": "Advanced specialist advising across functions and intelligence."
+      "title": "Public health specialist",
+      "profiles": ["profile4_senior_specialist"],
+      "ephf_weights": { "ephf03": 2, "ephf04": 2, "ephf01": 1, "ephf07": 1 },
+      "pa_weights":   { "pa01": 2, "pa03": 2, "pa04": 2, "pa16": 1, "pa26": 1 }
     },
     {
       "id": "senior_food_safety_personnel",
-      "label": "Senior food safety personnel",
-      "profiles": ["4","3"],
-      "ephf": ["ephf05","ephf10"],
-      "blurb": "Oversees food safety systems and standards."
+      "title": "Senior food safety personnel",
+      "profiles": ["profile4_senior_specialist"],
+      "ephf_weights": { "ephf05": 3, "ephf12": 2 },
+      "pa_weights":   { "pa05": 3, "pa09": 2, "pa33": 2 }
     },
 
-    // -------- Profile 5: Policy authorities --------
+    // Policy authorities
     {
       "id": "district_regional_authority",
-      "label": "Personnel working in district or regional government authorities",
-      "profiles": ["5"],
-      "ephf": ["ephf03","ephf04","ephf06","ephf09","ephf10"],
-      "blurb": "Coordinates and resources EPHF implementation at subnational level."
+      "title": "District or regional government authority personnel",
+      "profiles": ["profile5_policy_authority"],
+      "ephf_weights": { "ephf03": 3, "ephf04": 3 },
+      "pa_weights":   { "pa01": 3, "pa03": 2, "pa04": 3, "pa05": 2, "pa06": 3 }
     },
     {
       "id": "ministry_personnel",
-      "label": "Personnel working in ministries (e.g., of education, environment, finance, health, labour)",
-      "profiles": ["5"],
-      "ephf": ["ephf03","ephf04","ephf06","ephf09","ephf10"],
-      "blurb": "Sets policy, financing and workforce/quality oversight."
+      "title": "Ministry personnel (e.g., health, finance, education, environment)",
+      "profiles": ["profile5_policy_authority"],
+      "ephf_weights": { "ephf03": 3, "ephf04": 3, "ephf11": 1 },
+      "pa_weights":   { "pa03": 2, "pa04": 3, "pa05": 2, "pa06": 3 }
     },
     {
       "id": "regulatory_authority_personnel",
-      "label": "Personnel working in regulatory authorities",
-      "profiles": ["5"],
-      "ephf": ["ephf05","ephf10","ephf12","ephf03"],
-      "blurb": "Regulates health protection, quality and product access."
+      "title": "Regulatory authority personnel",
+      "profiles": ["profile5_policy_authority"],
+      "ephf_weights": { "ephf03": 3, "ephf12": 2 },
+      "pa_weights":   { "pa05": 3, "pa09": 2 }
     }
   ]
 }
