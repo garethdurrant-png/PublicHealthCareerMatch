@@ -1,16 +1,23 @@
-<!doctype html><html lang="en"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Public Health Career Match</title>
-<link rel="stylesheet" href="styles.css">
-</head><body>
-<main id="app"></main>
-<script type="module">
-  import { runWizard } from './app.js';
-  runWizard({
-    questionsUrl: 'questions.json',
-    rolesUrl: 'roles.json',
-    scoringConfigUrl: 'scoring_config.json',
-    mappingsUrl: 'mappings.json'   // ← add this line
-  });
-</script>
-</body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Public Health Career Match</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main id="app"></main>
+  <script type="module">
+    import { runWizard } from './app.js';
+    // absolute paths + cache-busting query to beat stale caches
+    const v = 'v=20250916-1';
+    runWizard({
+      questionsUrl: '/questions.json?' + v,
+      rolesUrl: '/roles.json?' + v,
+      scoringConfigUrl: '/scoring_config.json?' + v,
+      mappingsUrl: '/mappings.json?' + v
+    });
+  </script>
+</body>
+</html>
