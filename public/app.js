@@ -268,7 +268,7 @@ export async function runWizard(cfg){
       const ephfOverlap = Object.keys(state.ephf_selected).filter(k => x.role.ephf_weights?.[k]);
       return `
         <div class="result">
-          <strong>${x.role.title}</strong>
+          <strong>${x.role.title || x.role.label || x.role.id}</strong>
           <div class="bar"><span style="width:${pct}%; background:linear-gradient(90deg,#111,#666)"></span></div>
           <div style="font-size:14px;color:#444;margin-top:6px">
             Why: overlaps with ${ephfOverlap.map(k=>x.role.ephf_weights_labels?.[k]||k).join(', ') || 'your choices'}${
