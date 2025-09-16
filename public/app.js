@@ -1,3 +1,129 @@
+// ---- Educator helpers ----
+async function jget(path) {
+  const r = await fetch(path);
+  if (!r.ok) throw new Error(path + ' not found');
+  return r.json();
+}
+
+// Build an Educator learning plan using ONLY static JSON (no guessing)
+async function buildLearningPlan(state) {
+  const maps = await jget('/data/mappings.json');     // {ephf_to_pas:{...}}
+  const paIdx = await jget('/data/pa_index.json');    // { pa19: {...}, ... }
+
+  // 1) Candidate PAs from selected EPHFs
+  const ephfSel = Object.keys(state.ephf_selected || {});
+  const counts = {};
+  ephfSel.forEach(e => (maps.ephf_to_pas[e] || []).forEach(pa => {
+    counts[pa] = (counts[pa] || 0) + 1;
+  }));
+
+  // 2) Include any PA the user explicitly picked
+  Object.keys(state.practice_affinity || {}).forEach(pa => {
+    counts[pa] = (counts[pa] || 0) + 1;
+  });
+
+  // 3) Rank & cap PAs (tweak cap as you like)
+  const ranked = Object.entries(counts)
+    .sort((a,b) => b[1]-a[1])
+    .map(([id,n]) => ({ id, n }))
+    .slice(0, 6); // <=6 PAs for a short course
+
+  // 4) Collect profile-specific tasks & curricular items (verbatim)
+  const profileId = state.profile; // e.g., "profile1_core_ph"
+  const tasks = [];
+  const topics = []; // {text, pa, id, profiles}
+
+  ranked.forEach(({id}) => {
+    const pa = paIdx[id];
+    if (!pa) return;
+
+    // Tasks for chosen profile (exact text)
+    (pa.tasks_by_profile?.[profileId] || []).forEach(t => tasks.push({ pa: id, text: t }));
+
+    // Curricular items filtered by chosen profile's checkmark
+    const pnum = profileId ? (profileId.match(/(\d)/)?.[1] || '') : '';
+    (pa.curricular_guide || []).forEach(it => {
+      if (pnum && it.profiles?.[pnum] === true) {
+        topics.push({ pa: id, id: it.id, text: it.text });
+      }
+    });
+  });
+
+  // 5) Exact-text de-dup & frequency across PAs
+  const freq = new Map();
+  topics.forEach(t => {
+    const key = t.text.trim();
+    const entry = freq.get(key) || { text: key, from: new Set(), ids: [] };
+    entry.from.add(t.pa);
+    entry.ids.push(t.id);
+    freq.set(key, entry);
+  });
+
+  const merged = Array.from(freq.values())
+    .map(x => ({ text: x.text, pas: Array.from(x.from), ids: x.ids, count: x.from.size }))
+    .sort((a,b) => b.count - a.count);
+
+  // 6) Split into Core (in >=2 PAs) & Specialized (1 PA), cap list sizes
+  const core = merged.filter(x => x.count >= 2).slice(0, 12);
+  const specialized = merged.filter(x => x.count === 1).slice(0, 12);
+
+  return { ephfs: ephfSel, pas: ranked, tasks, core, specialized };
+}
+
+// Render the Educator plan (one card)
+async function renderEducator(state) {
+  const plan = await buildLearningPlan(state);
+
+  // Friendly labels from questions.json
+  const q = await jget('/questions.json');
+  const ephfMap = {}; (q.questions.find(x=>x.id==='q_ephf')?.options||[]).forEach(o=>ephfMap[o.id]=o.label);
+  const paMap   = {}; (q.questions.find(x=>x.id==='q_pa')?.options||[]).forEach(o=>paMap[o.id]=o.label);
+
+  const app = document.querySelector('#app') || document.body;
+  app.innerHTML = `
+    <div class="card">
+      <h2>Program builder (educator)</h2>
+      <p><strong>Selected EPHFs:</strong> ${plan.ephfs.map(e=>ephfMap[e]||e).join(', ') || '—'}</p>
+
+      <h3>Recommended practice activities</h3>
+      ${plan.pas.length ? `
+      <ol>
+        ${plan.pas.map(p => `<li>${paMap[p.id] || p.id} <small>(overlaps: ${p.n})</small></li>`).join('')}
+      </ol>` : `<p>No PA recommendations yet.</p>`}
+
+      <h3>Profile-specific tasks (verbatim)</h3>
+      ${plan.tasks.length ? `<ul>${plan.tasks.map(t => `<li><em>${paMap[t.pa]||t.pa}</em>: ${t.text}</li>`).join('')}</ul>`
+                          : `<p>No tasks yet — add PA data in <code>/data/pa_index.json</code>.</p>`}
+
+      <h3>Curricular guide (deduplicated)</h3>
+      <p><strong>Core (cross-PA):</strong></p>
+      ${plan.core.length ? `<ul>${plan.core.map(i => `<li>${i.text} <small>[${i.pas.join(', ')}]</small></li>`).join('')}</ul>`
+                         : `<p>None yet — add more PA entries.</p>`}
+      <p><strong>Specialized:</strong></p>
+      ${plan.specialized.length ? `<ul>${plan.specialized.map(i => `<li>${i.text} <small>[${i.pas.join(', ')}]</small></li>`).join('')}</ul>`
+                                : `<p>None yet — add more PA entries.</p>`}
+
+      <button id="dlcsv">Download CSV</button>
+    </div>
+  `;
+
+  // Simple CSV export
+  document.getElementById('dlcsv')?.addEventListener('click', () => {
+    const rows = [
+      ['Type','Text','FromPAs'],
+      ...plan.core.map(i => ['Core', i.text, i.pas.join(';')]),
+      ...plan.specialized.map(i => ['Specialized', i.text, i.pas.join(';')])
+    ];
+    const csv = rows.map(r => r.map(x => `"${String(x).replace(/"/g,'""')}"`).join(',')).join('\n');
+    const blob = new Blob([csv], {type:'text/csv'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href = url; a.download = 'curricular_plan.csv'; a.click();
+    URL.revokeObjectURL(url);
+  });
+}
+
+// expose for easy calling from your finish handler
+window.__renderEducator = renderEducator;
 // public/app.js
 import { score } from './scoring.js';
 
