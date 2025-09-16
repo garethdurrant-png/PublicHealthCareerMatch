@@ -1,20 +1,49 @@
+// public/app.js
 import { score } from './scoring.js';
 
 export async function runWizard(cfg){
   const root = document.getElementById('app');
+  const debug = new URLSearchParams(location.search).has('debug');
 
-  // Load everything, with safe fallbacks so a missing file won't crash the page
-  const loadJson = async (url, fallback) => {
-    try { const r = await fetch(url); if (!r.ok) throw new Error(url + ' ' + r.status); return await r.json(); }
-    catch (e){ console.error('Load failed:', e); return fallback; }
+  // Helper: safe JSON loader with console + on-page diagnostics
+  const loadJson = async (url, fallbackName) => {
+    try {
+      const r = await fetch(url, { cache: 'no-store' });
+      if (!r.ok) throw new Error(`${fallbackName} ${r.status}`);
+      const data = await r.json();
+      console.log(`[OK] loaded ${fallbackName}`, data);
+      return data;
+    } catch (e) {
+      console.error(`[ERR] load ${fallbackName}:`, e);
+      return null;
+    }
   };
 
-  const qs    = await loadJson(cfg.questionsUrl, {questions: []});
-  const roles = await loadJson(cfg.rolesUrl,     {roles: []});
-  const sc    = await loadJson(cfg.scoringConfigUrl, {weights:{ephf:1,practice:0,competency:0,profile:0,context_bonus:0}, skip_weights:{}});
-  const map   = await loadJson(cfg.mappingsUrl || 'mappings.json', { ephf_to_pa: {} });
+  const qs    = await loadJson(cfg.questionsUrl,      'questions.json');
+  const roles = await loadJson(cfg.rolesUrl,          'roles.json');
+  const sc    = await loadJson(cfg.scoringConfigUrl,  'scoring_config.json');
+  const map   = await loadJson(cfg.mappingsUrl || 'mappings.json', 'mappings.json') || { ephf_to_pa: {} };
 
-  const steps = qs.questions || qs.steps || [];
+  const steps = Array.isArray(qs) ? qs : (qs && (qs.questions || qs.steps)) || [];
+
+  if (!steps.length) {
+    const msg = 'No questions found.';
+    if (debug) {
+      root.innerHTML = `
+        <h2>${msg}</h2>
+        <p><strong>Diagnostics (enable/disable with ?debug=1):</strong></p>
+        <pre style="white-space:pre-wrap;border:1px solid #ddd;padding:12px;border-radius:8px">
+questionsUrl: ${cfg.questionsUrl}
+Loaded qs type: ${qs ? typeof qs : 'null'}
+qs keys: ${qs && typeof qs === 'object' ? Object.keys(qs).join(', ') : '(none)'}
+qs.questions length: ${qs && qs.questions && Array.isArray(qs.questions) ? qs.questions.length : 'n/a'}
+        </pre>`;
+    } else {
+      root.textContent = msg + ' (Tip: add ?debug=1 to the URL for details)';
+    }
+    return;
+  }
+
   const state = { criteria:{}, ephf_selected:{}, practice_affinity:{}, comp_level:{} };
   let step = 0;
 
@@ -41,8 +70,6 @@ export async function runWizard(cfg){
   };
 
   const renderQuestion = () => {
-    if (!steps.length){ root.textContent = 'No questions found.'; return; }
-
     const q = steps[step];
     const total = steps.length;
 
@@ -57,7 +84,7 @@ export async function runWizard(cfg){
       </div>`;
     const chips = card.querySelector('.chips');
 
-    // ----- EASY MODE for Practice Activities -----
+    // Easy-mode PA filtering
     let options = q.options || [];
     const isPAstep = (q.maps_to === 'practice_activity' || q.id === 'q_pa');
 
@@ -87,7 +114,7 @@ export async function runWizard(cfg){
         const c = document.createElement('button');
         c.type='button';
         c.className='chip';
-        c.dataset.id = opt.id ?? opt.value; // tolerate either shape
+        c.dataset.id = opt.id ?? opt.value;
         c.textContent = opt.label ?? opt.text ?? String(opt.id ?? opt.value);
         c.onclick = () => {
           const isSingle = (q.type==='single'||q.type==='single_select');
@@ -143,13 +170,12 @@ export async function runWizard(cfg){
   };
 
   const renderResults = () => {
-    const usedWeights = Object.keys(state.practice_affinity || {}).length
-      ? sc.weights
-      : (sc.skip_weights || sc.weights);
+    const usedWeights = (state.practice_affinity && Object.keys(state.practice_affinity).length)
+      ? sc?.weights || {}
+      : (sc?.skip_weights || sc?.weights || {});
 
-    const list = (roles.roles || []).map(role => {
-      let fit = score(state, role, sc); // base components (ephf/practice/competency/context)
-      // profile boost
+    const list = (roles?.roles || []).map(role => {
+      let fit = score(state, role, sc || {weights:{}, skip_weights:{}}); // base score
       if (role.profiles && state.criteria.profile) {
         fit += (usedWeights.profile || 0) * (role.profiles.includes(state.criteria.profile) ? 1 : 0);
       }
