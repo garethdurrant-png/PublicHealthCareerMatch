@@ -1,0 +1,16 @@
+{
+  "roles": [
+    {
+      "role_id": "ROLE_SURV",
+      "title": "Public Health Surveillance Officer",
+      "ephf_weights": { "EPHF_SURV": 1.0, "EPHF_PROMO": 0.2 },
+      "ephf_weights_labels": {
+        "EPHF_SURV": "Public health surveillance and monitoring",
+        "EPHF_PROMO": "Health promotion"
+      },
+      "practice_activity_weights": {},
+      "competency_requirements": {},
+      "context": { "role_style": ["RS_IC"] }
+    }
+  ]
+}
