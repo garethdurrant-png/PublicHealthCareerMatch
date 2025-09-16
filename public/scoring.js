@@ -1,6 +1,6 @@
 // public/scoring.js
-// Compatible with roles that use either `pa_weights` or `practice_activity_weights`,
-// and with scoring_config that uses either `practice_activity` or `practice`.
+// Tolerant to either `pa_weights` or `practice_activity_weights`.
+// Also tolerates `practice_activity` vs `practice` in scoring_config.
 
 export function score(state, role, sc) {
   const weights = sc?.weights || {};
@@ -9,27 +9,26 @@ export function score(state, role, sc) {
 
   // ----- EPHF score -----
   const userE = state?.ephf_selected || {};
-  const roleE = role?.ephf_weights || {}; // expected
-  let ephfSum = 0, ephfDen = 0;
+  const roleE = role?.ephf_weights || {};
+  let eSum = 0, eDen = 0;
   for (const [k, wt] of Object.entries(roleE)) {
     const wv = Math.max(0, Number(wt) || 0);
-    ephfDen += wv;
-    if (userE[k]) ephfSum += wv;
+    eDen += wv;
+    if (userE[k]) eSum += wv;
   }
-  const ephfScore = ephfDen > 0 ? ephfSum / ephfDen : 0;
+  const ephfScore = eDen > 0 ? eSum / eDen : 0;
 
   // ----- Practice-activity score -----
   const userPA = state?.practice_affinity || {};
-  const rolePA = role?.pa_weights || role?.practice_activity_weights || {}; // accept either
-  let paSum = 0, paDen = 0;
+  const rolePA = role?.pa_weights || role?.practice_activity_weights || {};
+  let pSum = 0, pDen = 0;
   for (const [k, wt] of Object.entries(rolePA)) {
     const wv = Math.max(0, Number(wt) || 0);
-    paDen += wv;
-    if (userPA[k]) paSum += wv;
+    pDen += wv;
+    if (userPA[k]) pSum += wv;
   }
-  const paScore = paDen > 0 ? paSum / paDen : 0;
+  const paScore = pDen > 0 ? pSum / pDen : 0;
 
-  // Base fit (profile bonus added in app.js)
   let fit = w_ephf * ephfScore + w_pa * paScore;
   if (!Number.isFinite(fit)) fit = 0;
   return Math.max(0, Math.min(1, fit));
