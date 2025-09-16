@@ -375,7 +375,15 @@ export async function runWizard(cfg){
     root.replaceChildren(card);
   };
 
-  const renderResults = () => {
+    const renderResults = () => {
+  // --- Educator branch (early exit) ---
+  const urlMode = new URLSearchParams(location.search).get('mode');
+  if ((state?.mode === 'educator') || (urlMode === 'educator')) {
+    window.__renderEducator?.(state);  // defined by the helpers you added earlier
+    return; // stop; don't render learner "top matches"
+  }
+  // --- end educator branch ---
+
     const usedWeights = (state.practice_affinity && Object.keys(state.practice_affinity).length)
       ? (sc?.weights || {})
       : (sc?.skip_weights || sc?.weights || {});
