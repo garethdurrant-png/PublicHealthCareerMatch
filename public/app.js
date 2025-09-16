@@ -6,7 +6,7 @@ export async function runWizard(cfg){
     fetch(cfg.questionsUrl).then(r=>r.json()),
     fetch(cfg.rolesUrl).then(r=>r.json()),
     fetch(cfg.scoringConfigUrl).then(r=>r.json()),
-    fetch(cfg.mappingsUrl).then(r=>r.json())
+    cfg.mappingsUrl ? fetch(cfg.mappingsUrl).then(r=>r.json()) : Promise.resolve({ephf_to_pa:{}})
   ]);
 
   const steps = qs.questions || qs.steps;
@@ -21,8 +21,8 @@ export async function runWizard(cfg){
       putFlags(selectedIds, state.ephf_selected);
     } else if (key === 'practice_activity' || key === 'practice_affinity' || key === 'q_pa') {
       putFlags(selectedIds, state.practice_affinity);
-    } else if (key === 'role_style' || key === 'criteria.role_style' || key === 'q_style') {
-      state.criteria.role_style = selectedIds[0] || null;
+    } else if (key === 'profile' || key === 'q_profile') {
+      state.criteria.profile = selectedIds[0] || null;
     } else if (key && key.startsWith('criteria.')) {
       state.criteria[key.split('.')[1]] = selectedIds[0] || null;
     }
@@ -31,7 +31,7 @@ export async function runWizard(cfg){
   const getRecommendedPAs = () => {
     const selected = Object.keys(state.ephf_selected);
     const rec = new Set();
-    selected.forEach(e => (map.ephf_to_pa[e] || []).forEach(pa => rec.add(pa)));
+    selected.forEach(e => (map.ephf_to_pa?.[e] || []).forEach(pa => rec.add(pa)));
     return Array.from(rec);
   };
 
@@ -48,23 +48,22 @@ export async function runWizard(cfg){
         ${step>0?'<button class="btn secondary" id="back">Back</button>':''}
         <button class="btn" id="next">Next</button>
       </div>`;
-
     const chips = card.querySelector('.chips');
 
-    // ----- EASY MODE for Practice Activities -----
+    // EASY MODE for Practice Activities
     let options = q.options || [];
-    let isPAstep = (q.maps_to === 'practice_activity' || q.id === 'q_pa');
+    const isPAstep = (q.maps_to === 'practice_activity' || q.id === 'q_pa');
 
-    // Build toolbar (search + show-all) for PA step
     let showAll = false, searchTerm = '';
     const toolbar = document.createElement('div');
     if (isPAstep){
       const recIds = getRecommendedPAs();
       if (recIds.length){
         options = options.filter(o => recIds.includes(o.id));
+
         const hint = document.createElement('div');
         hint.style.cssText='margin-bottom:10px;color:#555;font-size:14px';
-        hint.textContent = 'Recommended for your EPHF choices. You can also search or show all.';
+        hint.textContent = 'Recommended for your EPHF choices. You can search or show all.';
         card.insertBefore(hint, chips);
 
         toolbar.innerHTML = `
@@ -77,15 +76,15 @@ export async function runWizard(cfg){
 
     const renderChips = (opts) => {
       chips.replaceChildren();
-      opts.forEach(opt=>{
+      (opts || []).forEach(opt=>{
         const c = document.createElement('button');
-        c.type='button'; c.className='chip'; c.dataset.id=opt.id; c.textContent=opt.label;
-        c.onclick=()=>{
+        c.type='button'; c.className='chip'; c.dataset.id = opt.id || opt.value; c.textContent = opt.label;
+        c.onclick = () => {
           const isSingle = (q.type==='single'||q.type==='single_select');
           if(isSingle){
             chips.querySelectorAll('.chip').forEach(el=>el.classList.remove('active'));
             c.classList.add('active');
-          }else{
+          } else {
             c.classList.toggle('active');
             const active = chips.querySelectorAll('.chip.active').length;
             const maxSel = q.max_select || q.maxSelections;
@@ -96,34 +95,31 @@ export async function runWizard(cfg){
       });
     };
 
-    // First render (possibly filtered)
     renderChips(options);
 
-    // Hook up toolbar
     if (isPAstep && toolbar){
       const search = toolbar.querySelector('#paSearch');
       const toggle = toolbar.querySelector('#toggleAll');
       const full = (q.options || []);
+      const recIds = getRecommendedPAs();
 
       toggle.onclick = ()=>{
         showAll = !showAll;
         toggle.textContent = showAll ? 'Show recommended' : 'Show all 40';
-        renderChips(showAll ? full : (q.options || []).filter(o => getRecommendedPAs().includes(o.id)));
+        renderChips(showAll ? full : full.filter(o => recIds.includes(o.id)));
       };
 
       search.oninput = (e)=>{
         searchTerm = (e.target.value || '').toLowerCase();
-        const base = (showAll ? full : (q.options || []).filter(o => getRecommendedPAs().includes(o.id)));
-        const filtered = base.filter(o => o.label.toLowerCase().includes(searchTerm));
-        renderChips(filtered);
+        const base = (showAll ? full : full.filter(o => recIds.includes(o.id)));
+        renderChips(base.filter(o => (o.label||'').toLowerCase().includes(searchTerm)));
       };
     }
-    // --------------------------------------------
 
-    if(step>0) card.querySelector('#back').onclick=()=>{ step--; renderQuestion(); };
+    if(step>0) card.querySelector('#back').onclick = ()=>{ step--; renderQuestion(); };
 
-    card.querySelector('#next').onclick=()=>{
-      const selectedIds=[...chips.querySelectorAll('.chip.active')].map(el=>el.dataset.id);
+    card.querySelector('#next').onclick = ()=>{
+      const selectedIds = [...chips.querySelectorAll('.chip.active')].map(el=>el.dataset.id);
       const required = q.required === true;
       const isSingle = (q.type==='single'||q.type==='single_select');
       if(isSingle && selectedIds.length===0) return alert('Please choose one.');
@@ -137,8 +133,24 @@ export async function runWizard(cfg){
   };
 
   const renderResults = () => {
-    const list = (roles.roles || []).map(role => ({ role, fit: score(state, role, sc) }))
-      .sort((a,b)=>b.fit-a.fit).slice(0,5);
+    const usedWeights = Object.keys(state.practice_affinity || {}).length
+      ? sc.weights
+      : (sc.skip_weights || sc.weights);
+
+    const list = (roles.roles || []).map(role => {
+      // base fit from function/practice/competency/context
+      let fit = score(state, role, sc);
+
+      // profile boost
+      if (role.profiles && state.criteria.profile) {
+        const matched = role.profiles.includes(state.criteria.profile) ? 1 : 0;
+        fit += (usedWeights.profile || 0) * matched;
+      }
+
+      return { role, fit };
+    })
+    .sort((a,b)=>b.fit-a.fit)
+    .slice(0,5);
 
     const card = document.createElement('section'); card.className='card';
     card.innerHTML = `<h2>Your top matches</h2>` + list.map(x=>{
@@ -149,7 +161,9 @@ export async function runWizard(cfg){
           <strong>${x.role.title}</strong>
           <div class="bar"><span style="width:${pct}%; background:linear-gradient(90deg,#111,#666)"></span></div>
           <div style="font-size:14px;color:#444;margin-top:6px">
-            Why: overlaps with ${ephfOverlap.map(k=>x.role.ephf_weights_labels?.[k]||k).join(', ') || 'your choices'}.
+            Why: overlaps with ${ephfOverlap.map(k=>x.role.ephf_weights_labels?.[k]||k).join(', ') || 'your choices'}${
+              state.criteria.profile && x.role.profiles?.includes(state.criteria.profile) ? ' • matches your profile' : ''
+            }.
           </div>
         </div>`;
     }).join('');
