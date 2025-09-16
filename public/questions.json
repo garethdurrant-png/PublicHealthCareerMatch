@@ -5,7 +5,7 @@
       "type": "multiselect",
       "max_select": 3,
       "required": true,
-      "prompt": "Which of the following essential public health functions (EPHFs) best describe your work interests?",
+      "prompt": "Which of the following essential public health functions (EPHFs) best describe your work interests? (Pick up to 3)",
       "maps_to": "ephf",
       "options": [
         { "id": "ephf01", "label": "Public health surveillance and monitoring" },
