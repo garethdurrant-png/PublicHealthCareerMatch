@@ -1,9 +1,15 @@
 export function score(user, role, sc){
-  const w = sc.weights;
+  const usedWeights = Object.keys(user.practice_affinity || {}).length
+    ? sc.weights
+    : (sc.skip_weights || sc.weights);
+
+  const w = usedWeights;
   const dot = (a,b)=>Object.entries(a||{}).reduce((s,[k,v])=>s + (v||0)*((b&&b[k])||0),0);
 
   const ephf = dot(user.ephf_selected, role.ephf_weights);
   const prac = dot(user.practice_affinity, role.practice_activity_weights);
+
+  // Placeholder competency readiness (add proper levels later)
   const comp = (() => {
     const req = role.competency_requirements || {};
     const ids = Object.keys(req);
@@ -16,8 +22,8 @@ export function score(user, role, sc){
     }
     return sum/ids.length;
   })();
+
   const ctx = role.context?.role_style?.includes(user.criteria.role_style) ? 1 : 0;
 
   return w.ephf*ephf + w.practice*prac + w.competency*comp + w.context_bonus*ctx;
 }
-
