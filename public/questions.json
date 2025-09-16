@@ -1,0 +1,26 @@
+{
+  "questions": [
+    {
+      "id": "Q2",
+      "type": "multiselect",
+      "max_select": 3,
+      "required": true,
+      "prompt": "Which public-health functions feel most meaningful? (Pick up to 3)",
+      "maps_to": "ephf_selected",
+      "options": [
+        {"id": "EPHF_SURV", "label": "Public health surveillance and monitoring"},
+        {"id": "EPHF_PROMO", "label": "Health promotion"}
+      ]
+    },
+    {
+      "id": "Q5",
+      "type": "single",
+      "prompt": "What role style fits you now?",
+      "maps_to": "criteria.role_style",
+      "options": [
+        {"id": "RS_IC", "label": "Individual contributor"},
+        {"id": "RS_STRAT", "label": "Strategic leadership"}
+      ]
+    }
+  ]
+}
