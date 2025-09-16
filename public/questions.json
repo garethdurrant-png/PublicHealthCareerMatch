@@ -1,26 +1,40 @@
 {
   "questions": [
     {
-      "id": "Q2",
+      "id": "q_ephf",
       "type": "multiselect",
       "max_select": 3,
       "required": true,
       "prompt": "Which public-health functions feel most meaningful? (Pick up to 3)",
-      "maps_to": "ephf_selected",
+      "maps_to": "ephf",
       "options": [
-        {"id": "EPHF_SURV", "label": "Public health surveillance and monitoring"},
-        {"id": "EPHF_PROMO", "label": "Health promotion"}
+        { "id": "ephf01", "label": "Public health surveillance and monitoring" },
+        { "id": "ephf02", "label": "Public health emergency management" },
+        { "id": "ephf03", "label": "Public health stewardship" },
+        { "id": "ephf04", "label": "Multisectoral planning, financing and management" },
+        { "id": "ephf05", "label": "Health protection" },
+        { "id": "ephf06", "label": "Disease prevention and early detection" },
+        { "id": "ephf07", "label": "Health promotion" },
+        { "id": "ephf08", "label": "Community engagement and social participation" },
+        { "id": "ephf09", "label": "Public health workforce development" },
+        { "id": "ephf10", "label": "Health service quality and equity" },
+        { "id": "ephf11", "label": "Public health research, evaluation and knowledge" },
+        { "id": "ephf12", "label": "Access to and utilization of health products, supplies, equipment and technologies" }
       ]
     },
+
     {
-      "id": "Q5",
+      "id": "q_style",
       "type": "single",
+      "max_select": 1,
+      "required": true,
       "prompt": "What role style fits you now?",
-      "maps_to": "criteria.role_style",
+      "maps_to": "role_style",
       "options": [
-        {"id": "RS_IC", "label": "Individual contributor"},
-        {"id": "RS_STRAT", "label": "Strategic leadership"}
+        { "id": "ic", "label": "Individual contributor" },
+        { "id": "lead", "label": "Strategic leadership" }
       ]
-    }
-  ]
-}
+    },
+
+    {
+      "id": "q_pa",
