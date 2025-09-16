@@ -1,17 +1,20 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Public Health Career Match</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <main id="app"></main>
+
   <script type="module">
     import { runWizard } from './app.js';
-    // absolute paths + cache-busting query to beat stale caches
-    const v = 'v=20250916-1';
+
+    /* Cache-busting so the browser always fetches the latest JSON files */
+    const v = 'v=20250916-2';
+
     runWizard({
       questionsUrl: '/questions.json?' + v,
       rolesUrl: '/roles.json?' + v,
