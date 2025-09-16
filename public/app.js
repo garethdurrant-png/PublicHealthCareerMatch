@@ -5,7 +5,7 @@ export async function runWizard(cfg){
   const root = document.getElementById('app');
   const debug = new URLSearchParams(location.search).has('debug');
 
-  // --- Inline fallback so the UI can still run while we debug ---
+  // Fallback questions so the wizard renders while we debug fetch
   const FALLBACK_QS = {
     "questions": [
       {
@@ -97,36 +97,47 @@ export async function runWizard(cfg){
     ]
   };
 
-  // Loader that shows status + first 300 chars if it fails
-  const loadJson = async (url, label, fallback=null) => {
-    try {
-      const r = await fetch(url, { cache: 'no-store' });
-      const status = r.status;
-      const ct = r.headers.get('content-type') || '';
-      const txt = await r.text();
-      if (status < 200 || status >= 300) throw new Error(`HTTP ${status}`);
+  // Try multiple URLs in order. Show exact error text if fetch/parse fails.
+  const loadJsonMulti = async (urls, label, fallback=null) => {
+    for (const url of urls){
       try {
-        return JSON.parse(txt);
-      } catch (e) {
-        throw new Error(`Parse error: ${e.message}\nFirst 300 chars:\n${txt.slice(0,300)}`);
+        const r = await fetch(url, { cache: 'no-store' });
+        const status = r.status;
+        const txt = await r.text();
+        if (status < 200 || status >= 300) throw new Error(`HTTP ${status}`);
+        try { return JSON.parse(txt); }
+        catch (e) { throw new Error(`Parse error: ${e.message}\nFirst 200 chars:\n${txt.slice(0,200)}`); }
+      } catch (err) {
+        if (debug) {
+          console.error(`[${label}] ${String(err)}`);
+          const box = document.createElement('pre');
+          box.style.cssText = 'white-space:pre-wrap;border:1px solid #ddd;padding:12px;border-radius:8px;margin:10px 0';
+          box.textContent = `Failed ${label} from ${urls[0]} -> trying next.\n${String(err)}`;
+          (document.querySelector('#diag') || document.body).appendChild(box);
+        }
       }
-    } catch (err) {
-      if (debug) {
-        root.innerHTML = `
-          <h2>Failed to load ${label}</h2>
-          <pre style="white-space:pre-wrap;border:1px solid #ddd;padding:12px;border-radius:8px">
-URL: ${url}
-Error: ${String(err)}
-          </pre>`;
-      }
-      return fallback;
     }
+    return fallback;
   };
 
-  const qs    = await loadJson(cfg.questionsUrl,     'questions.json', FALLBACK_QS);
-  const roles = await loadJson(cfg.rolesUrl,         'roles.json',     {roles: []});
-  const sc    = await loadJson(cfg.scoringConfigUrl, 'scoring_config.json', {weights:{}, skip_weights:{}});
-  const map   = await loadJson(cfg.mappingsUrl || 'mappings.json', 'mappings.json', {ephf_to_pa:{}});
+  // Candidates for each file (root-relative, then relative, then cache-busted)
+  const qs    = await loadJsonMulti([cfg.questionsUrl, './questions.json', '/questions.json?bust='+Date.now()], 'questions.json', FALLBACK_QS);
+  const roles = await loadJsonMulti([cfg.rolesUrl, './roles.json', '/roles.json?bust='+Date.now()], 'roles.json', {roles: []});
+  const sc    = await loadJsonMulti([cfg.scoringConfigUrl, './scoring_config.json', '/scoring_config.json?bust='+Date.now()], 'scoring_config.json', {weights:{}, skip_weights:{}});
+  const map   = await loadJsonMulti([cfg.mappingsUrl || '/mappings.json', './mappings.json', '/mappings.json?bust='+Date.now()], 'mappings.json', {ephf_to_pa:{}});
+
+  if (debug) {
+    const d = document.createElement('div'); d.id='diag';
+    d.innerHTML = `<h2>Diagnostics</h2>`;
+    document.body.prepend(d);
+    const add = (name, obj) => {
+      const p = document.createElement('pre');
+      p.style.cssText = 'white-space:pre-wrap;border:1px solid #eee;padding:10px;border-radius:8px';
+      p.textContent = `${name}: ${obj ? 'ok' : 'null'} ${obj && obj.questions ? `(questions=${obj.questions.length})` : ''}`;
+      d.appendChild(p);
+    };
+    add('qs', qs); add('roles', roles); add('sc', sc); add('map', map);
+  }
 
   const steps = Array.isArray(qs) ? qs : (qs.questions || qs.steps || []);
   if (!steps.length){
@@ -134,9 +145,9 @@ Error: ${String(err)}
     return;
   }
 
+  // ---------- Wizard state ----------
   const state = { criteria:{}, ephf_selected:{}, practice_affinity:{}, comp_level:{} };
   let step = 0;
-
   const putFlags = (ids, target) => ids.forEach(id => { if (id) target[id] = 1; });
   const setAnswer = (q, selectedIds) => {
     const key = q.maps_to || q.id;
@@ -155,7 +166,6 @@ Error: ${String(err)}
   const renderQuestion = () => {
     const q = steps[step];
     const total = steps.length;
-
     const card = document.createElement('section'); card.className='card';
     card.innerHTML = `
       <div class="progress">Step ${step+1} of ${total}</div>
@@ -167,9 +177,9 @@ Error: ${String(err)}
       </div>`;
     const chips = card.querySelector('.chips');
 
+    // Easy-mode PA
     let options = q.options || [];
     const isPAstep = (q.maps_to === 'practice_activity' || q.id === 'q_pa');
-
     let showAll = false;
     const toolbar = document.createElement('div');
     if (isPAstep){
@@ -198,10 +208,8 @@ Error: ${String(err)}
         c.textContent = opt.label ?? opt.text ?? String(opt.id ?? opt.value);
         c.onclick = () => {
           const isSingle = (q.type==='single'||q.type==='single_select');
-          if(isSingle){
-            chips.querySelectorAll('.chip').forEach(el=>el.classList.remove('active'));
-            c.classList.add('active');
-          } else {
+          if(isSingle){ chips.querySelectorAll('.chip').forEach(el=>el.classList.remove('active')); c.classList.add('active'); }
+          else {
             c.classList.toggle('active');
             const active = chips.querySelectorAll('.chip.active').length;
             const maxSel = q.max_select || q.maxSelections;
@@ -219,17 +227,11 @@ Error: ${String(err)}
       const toggle = toolbar.querySelector('#toggleAll');
       const full = (q.options || []);
       const recIds = getRecommendedPAs();
-
-      toggle.onclick = ()=>{
-        showAll = !showAll;
-        toggle.textContent = showAll ? 'Show recommended' : 'Show all 40';
-        renderChips(showAll ? full : full.filter(o => recIds.includes(o.id)));
-      };
-      search.oninput = (e)=>{
-        const term = (e.target.value || '').toLowerCase();
+      toggle.onclick = ()=>{ showAll = !showAll; toggle.textContent = showAll ? 'Show recommended' : 'Show all 40';
+        renderChips(showAll ? full : full.filter(o => recIds.includes(o.id))); };
+      search.oninput = (e)=>{ const term=(e.target.value||'').toLowerCase();
         const base = (showAll ? full : full.filter(o => recIds.includes(o.id)));
-        renderChips(base.filter(o => (o.label||'').toLowerCase().includes(term)));
-      };
+        renderChips(base.filter(o => (o.label||'').toLowerCase().includes(term))); };
     }
 
     if(step>0) card.querySelector('#back').onclick = ()=>{ step--; renderQuestion(); };
@@ -247,16 +249,15 @@ Error: ${String(err)}
     root.replaceChildren(card);
   };
 
-  const usedWeights = sc?.weights || {};
-  const usedSkip    = sc?.skip_weights || usedWeights;
-
   const renderResults = () => {
-    const weights = (state.practice_affinity && Object.keys(state.practice_affinity).length) ? usedWeights : usedSkip;
+    const usedWeights = (state.practice_affinity && Object.keys(state.practice_affinity).length)
+      ? (sc?.weights || {})
+      : (sc?.skip_weights || sc?.weights || {});
 
     const list = (roles?.roles || []).map(role => {
-      let fit = score(state, role, sc || {weights:{}, skip_weights:{}}); // base
+      let fit = score(state, role, sc || {weights:{}, skip_weights:{}});
       if (role.profiles && state.criteria.profile) {
-        fit += (weights.profile || 0) * (role.profiles.includes(state.criteria.profile) ? 1 : 0);
+        fit += (usedWeights.profile || 0) * (role.profiles.includes(state.criteria.profile) ? 1 : 0);
       }
       return { role, fit };
     }).sort((a,b)=>b.fit-a.fit).slice(0,5);
