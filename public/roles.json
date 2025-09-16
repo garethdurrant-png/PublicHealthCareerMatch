@@ -56,8 +56,6 @@
       "ephf_weights": { "ephf05": 3, "ephf10": 1 },
       "pa_weights":   { "pa05": 2, "pa09": 3, "pa33": 2 }
     },
-
-    // Health & care workers
     {
       "id": "biomedical_engineer",
       "title": "Biomedical engineer",
@@ -135,8 +133,6 @@
       "ephf_weights": { "ephf07": 2, "ephf06": 2, "ephf08": 1 },
       "pa_weights":   { "pa27": 2, "pa28": 2, "pa25": 2 }
     },
-
-    // Occupations allied to health
     {
       "id": "animal_health_personnel",
       "title": "Animal health personnel",
@@ -214,8 +210,6 @@
       "ephf_weights": { "ephf05": 3 },
       "pa_weights":   { "pa33": 3, "pa09": 2 }
     },
-
-    // Senior specialists
     {
       "id": "chief_nursing_midwifery_officer",
       "title": "Chief nursing and midwifery officer",
@@ -258,8 +252,6 @@
       "ephf_weights": { "ephf05": 3, "ephf12": 2 },
       "pa_weights":   { "pa05": 3, "pa09": 2, "pa33": 2 }
     },
-
-    // Policy authorities
     {
       "id": "district_regional_authority",
       "title": "District or regional government authority personnel",
