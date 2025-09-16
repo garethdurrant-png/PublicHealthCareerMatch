@@ -2,18 +2,23 @@ import { score } from './scoring.js';
 
 export async function runWizard(cfg){
   const root = document.getElementById('app');
-  const [qs, roles, sc, map] = await Promise.all([
-    fetch(cfg.questionsUrl).then(r=>r.json()),
-    fetch(cfg.rolesUrl).then(r=>r.json()),
-    fetch(cfg.scoringConfigUrl).then(r=>r.json()),
-    cfg.mappingsUrl ? fetch(cfg.mappingsUrl).then(r=>r.json()) : Promise.resolve({ephf_to_pa:{}})
-  ]);
 
-  const steps = qs.questions || qs.steps;
+  // Load everything, with safe fallbacks so a missing file won't crash the page
+  const loadJson = async (url, fallback) => {
+    try { const r = await fetch(url); if (!r.ok) throw new Error(url + ' ' + r.status); return await r.json(); }
+    catch (e){ console.error('Load failed:', e); return fallback; }
+  };
+
+  const qs    = await loadJson(cfg.questionsUrl, {questions: []});
+  const roles = await loadJson(cfg.rolesUrl,     {roles: []});
+  const sc    = await loadJson(cfg.scoringConfigUrl, {weights:{ephf:1,practice:0,competency:0,profile:0,context_bonus:0}, skip_weights:{}});
+  const map   = await loadJson(cfg.mappingsUrl || 'mappings.json', { ephf_to_pa: {} });
+
+  const steps = qs.questions || qs.steps || [];
   const state = { criteria:{}, ephf_selected:{}, practice_affinity:{}, comp_level:{} };
   let step = 0;
 
-  const putFlags = (ids, target) => ids.forEach(id => { target[id] = 1; });
+  const putFlags = (ids, target) => ids.forEach(id => { if (id) target[id] = 1; });
 
   const setAnswer = (q, selectedIds) => {
     const key = q.maps_to || q.id;
@@ -36,13 +41,15 @@ export async function runWizard(cfg){
   };
 
   const renderQuestion = () => {
+    if (!steps.length){ root.textContent = 'No questions found.'; return; }
+
     const q = steps[step];
     const total = steps.length;
 
     const card = document.createElement('section'); card.className='card';
     card.innerHTML = `
       <div class="progress">Step ${step+1} of ${total}</div>
-      <h2>${q.prompt || q.title}</h2>
+      <h2>${q.prompt || q.title || 'Question'}</h2>
       <div class="chips"></div>
       <div class="actions">
         ${step>0?'<button class="btn secondary" id="back">Back</button>':''}
@@ -50,11 +57,11 @@ export async function runWizard(cfg){
       </div>`;
     const chips = card.querySelector('.chips');
 
-    // EASY MODE for Practice Activities
+    // ----- EASY MODE for Practice Activities -----
     let options = q.options || [];
     const isPAstep = (q.maps_to === 'practice_activity' || q.id === 'q_pa');
 
-    let showAll = false, searchTerm = '';
+    let showAll = false;
     const toolbar = document.createElement('div');
     if (isPAstep){
       const recIds = getRecommendedPAs();
@@ -78,7 +85,10 @@ export async function runWizard(cfg){
       chips.replaceChildren();
       (opts || []).forEach(opt=>{
         const c = document.createElement('button');
-        c.type='button'; c.className='chip'; c.dataset.id = opt.id || opt.value; c.textContent = opt.label;
+        c.type='button';
+        c.className='chip';
+        c.dataset.id = opt.id ?? opt.value; // tolerate either shape
+        c.textContent = opt.label ?? opt.text ?? String(opt.id ?? opt.value);
         c.onclick = () => {
           const isSingle = (q.type==='single'||q.type==='single_select');
           if(isSingle){
@@ -110,9 +120,9 @@ export async function runWizard(cfg){
       };
 
       search.oninput = (e)=>{
-        searchTerm = (e.target.value || '').toLowerCase();
+        const term = (e.target.value || '').toLowerCase();
         const base = (showAll ? full : full.filter(o => recIds.includes(o.id)));
-        renderChips(base.filter(o => (o.label||'').toLowerCase().includes(searchTerm)));
+        renderChips(base.filter(o => (o.label||'').toLowerCase().includes(term)));
       };
     }
 
@@ -138,19 +148,13 @@ export async function runWizard(cfg){
       : (sc.skip_weights || sc.weights);
 
     const list = (roles.roles || []).map(role => {
-      // base fit from function/practice/competency/context
-      let fit = score(state, role, sc);
-
+      let fit = score(state, role, sc); // base components (ephf/practice/competency/context)
       // profile boost
       if (role.profiles && state.criteria.profile) {
-        const matched = role.profiles.includes(state.criteria.profile) ? 1 : 0;
-        fit += (usedWeights.profile || 0) * matched;
+        fit += (usedWeights.profile || 0) * (role.profiles.includes(state.criteria.profile) ? 1 : 0);
       }
-
       return { role, fit };
-    })
-    .sort((a,b)=>b.fit-a.fit)
-    .slice(0,5);
+    }).sort((a,b)=>b.fit-a.fit).slice(0,5);
 
     const card = document.createElement('section'); card.className='card';
     card.innerHTML = `<h2>Your top matches</h2>` + list.map(x=>{
