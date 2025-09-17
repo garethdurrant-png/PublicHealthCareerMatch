@@ -1,24 +1,22 @@
 {
-  "questions": [
+  "steps": [
     {
-      "id": "q_mode",
-      "type": "single",
-      "required": true,
-      "prompt": "Who are you?",
-      "maps_to": "mode",
+      "id": "audience",
+      "type": "choice",
+      "title": "Who are you?",
+      "subtitle": "Pick one to tailor the plan.",
+      "max": 1,
       "options": [
         { "id": "educator", "label": "Educator / programme designer" },
         { "id": "learner",  "label": "Learner / student" }
       ]
     },
-
     {
-      "id": "q_ephf",
-      "type": "multiselect",
-      "max_select": 3,
-      "required": true,
-      "prompt": "Which of the following essential public health functions (EPHFs) best describe your work interests? (Pick up to 3)",
-      "maps_to": "ephf",
+      "id": "ephfs",
+      "type": "choice",
+      "title": "Which EPHFs best describe your focus? (Pick up to 3)",
+      "subtitle": "",
+      "max": 3,
       "options": [
         { "id": "ephf01", "label": "Public health surveillance and monitoring" },
         { "id": "ephf02", "label": "Public health emergency management" },
@@ -34,31 +32,14 @@
         { "id": "ephf12", "label": "Access to and utilization of health products, supplies, equipment and technologies" }
       ]
     },
-
     {
-      "id": "q_profile",
-      "type": "single",
-      "required": false,
-      "show_if": { "mode": "educator" },
-      "prompt": "Which illustrative profile best fits your current (or intended) role?",
-      "maps_to": "profile",
-      "options": [
-        { "id": "profile1_core_ph",     "label": "Core public health personnel (1)" },
-        { "id": "profile2_health_care", "label": "Health and care workers (2)" },
-        { "id": "profile3_allied",      "label": "Occupations allied to health (3)" },
-        { "id": "profile4_specialists", "label": "Senior specialists (4)" },
-        { "id": "profile5_authority",   "label": "Policy authorities (5)" }
-      ]
-    },
-
-    {
-      "id": "q_pas",
-      "type": "multiselect",
-      "max_select": 3,
-      "required": false,
-      "prompt": "Which practice activities sound appealing? (Optional – Pick up to 3)",
-      "maps_to": "pa_pref",
-      "options_from": "pa_index" 
+      "id": "pas",
+      "type": "choice",
+      "title": "Which practice activities sound appealing? (Pick up to 3)",
+      "subtitle": "Recommended for your EPHF choices",
+      "max": 3,
+      "options": [],
+      "options_from": "pa_index"
     }
   ]
 }
