@@ -1,39 +1,442 @@
 {
+  "pa01": {
+    "title": "Establishing and maintaining public health governance mechanisms",
+    "tasks_by_profile": {
+      "profile1_core_ph": [],
+      "profile2_health_care": [],
+      "profile3_allied": [],
+      "profile4_senior_specialist": [],
+      "profile5_policy_authority": []
+    },
+    "curricular_guide": []
+  },
+  "pa02": {
+    "title": "Establishing and maintaining mechanisms for community engagement and social participation",
+    "tasks_by_profile": {
+      "profile1_core_ph": [],
+      "profile2_health_care": [],
+      "profile3_allied": [],
+      "profile4_senior_specialist": [],
+      "profile5_policy_authority": []
+    },
+    "curricular_guide": []
+  },
+  "pa03": {
+    "title": "Setting public health strategies",
+    "tasks_by_profile": {
+      "profile1_core_ph": [],
+      "profile2_health_care": [],
+      "profile3_allied": [],
+      "profile4_senior_specialist": [],
+      "profile5_policy_authority": []
+    },
+    "curricular_guide": []
+  },
+  "pa04": {
+    "title": "Developing and operationalizing policy with public health impact",
+    "tasks_by_profile": {
+      "profile1_core_ph": [],
+      "profile2_health_care": [],
+      "profile3_allied": [],
+      "profile4_senior_specialist": [],
+      "profile5_policy_authority": []
+    },
+    "curricular_guide": []
+  },
+  "pa05": {
+    "title": "Developing and operationalizing legislative and regulatory frameworks with public health impact",
+    "tasks_by_profile": {
+      "profile1_core_ph": [],
+      "profile2_health_care": [],
+      "profile3_allied": [],
+      "profile4_senior_specialist": [],
+      "profile5_policy_authority": []
+    },
+    "curricular_guide": []
+  },
+  "pa06": {
+    "title": "Optimizing resource allocations within multisectoral financing mechanisms",
+    "tasks_by_profile": {
+      "profile1_core_ph": [],
+      "profile2_health_care": [],
+      "profile3_allied": [],
+      "profile4_senior_specialist": [],
+      "profile5_policy_authority": []
+    },
+    "curricular_guide": []
+  },
+  "pa07": {
+    "title": "Optimizing the workforce for the delivery of the EPHFs",
+    "tasks_by_profile": {
+      "profile1_core_ph": [],
+      "profile2_health_care": [],
+      "profile3_allied": [],
+      "profile4_senior_specialist": [],
+      "profile5_policy_authority": []
+    },
+    "curricular_guide": []
+  },
+  "pa08": {
+    "title": "Managing the supply chain",
+    "tasks_by_profile": {
+      "profile1_core_ph": [],
+      "profile2_health_care": [],
+      "profile3_allied": [],
+      "profile4_senior_specialist": [],
+      "profile5_policy_authority": []
+    },
+    "curricular_guide": []
+  },
+  "pa09": {
+    "title": "Quality assurance of public health infrastructure",
+    "tasks_by_profile": {
+      "profile1_core_ph": [],
+      "profile2_health_care": [],
+      "profile3_allied": [],
+      "profile4_senior_specialist": [],
+      "profile5_policy_authority": []
+    },
+    "curricular_guide": []
+  },
+  "pa10": {
+    "title": "Establishing and updating public health information and informatics systems",
+    "tasks_by_profile": {
+      "profile1_core_ph": [],
+      "profile2_health_care": [],
+      "profile3_allied": [],
+      "profile4_senior_specialist": [],
+      "profile5_policy_authority": []
+    },
+    "curricular_guide": []
+  },
+  "pa11": {
+    "title": "Establishing and updating public health intelligence systems",
+    "tasks_by_profile": {
+      "profile1_core_ph": [],
+      "profile2_health_care": [],
+      "profile3_allied": [],
+      "profile4_senior_specialist": [],
+      "profile5_policy_authority": []
+    },
+    "curricular_guide": []
+  },
+  "pa12": {
+    "title": "Planning investigations for public health",
+    "tasks_by_profile": {
+      "profile1_core_ph": [],
+      "profile2_health_care": [],
+      "profile3_allied": [],
+      "profile4_senior_specialist": [],
+      "profile5_policy_authority": []
+    },
+    "curricular_guide": []
+  },
+  "pa13": {
+    "title": "Designing and adapting instruments, tools and methods for data collection",
+    "tasks_by_profile": {
+      "profile1_core_ph": [],
+      "profile2_health_care": [],
+      "profile3_allied": [],
+      "profile4_senior_specialist": [],
+      "profile5_policy_authority": []
+    },
+    "curricular_guide": []
+  },
+  "pa14": {
+    "title": "Gathering qualitative and quantitative data for investigations for public health",
+    "tasks_by_profile": {
+      "profile1_core_ph": [],
+      "profile2_health_care": [],
+      "profile3_allied": [],
+      "profile4_senior_specialist": [],
+      "profile5_policy_authority": []
+    },
+    "curricular_guide": []
+  },
+  "pa15": {
+    "title": "Conducting risk assessments and emergency preparedness assessments",
+    "tasks_by_profile": {
+      "profile1_core_ph": [],
+      "profile2_health_care": [],
+      "profile3_allied": [],
+      "profile4_senior_specialist": [],
+      "profile5_policy_authority": []
+    },
+    "curricular_guide": []
+  },
+  "pa16": {
+    "title": "Maintaining continuous data surveillance and monitoring mechanisms",
+    "tasks_by_profile": {
+      "profile1_core_ph": [],
+      "profile2_health_care": [],
+      "profile3_allied": [],
+      "profile4_senior_specialist": [],
+      "profile5_policy_authority": []
+    },
+    "curricular_guide": []
+  },
+  "pa17": {
+    "title": "Conducting a rapid risk assessment",
+    "tasks_by_profile": {
+      "profile1_core_ph": [],
+      "profile2_health_care": [],
+      "profile3_allied": [],
+      "profile4_senior_specialist": [],
+      "profile5_policy_authority": []
+    },
+    "curricular_guide": []
+  },
+  "pa18": {
+    "title": "Conducting a public health situation analysis",
+    "tasks_by_profile": {
+      "profile1_core_ph": [],
+      "profile2_health_care": [],
+      "profile3_allied": [],
+      "profile4_senior_specialist": [],
+      "profile5_policy_authority": []
+    },
+    "curricular_guide": []
+  },
   "pa19": {
     "title": "Analysing and interpreting data, information and evidence",
     "tasks_by_profile": {
-      "profile1_core_ph": [
-        "<<<PASTE verbatim tasks for Profile 1 (Core public health personnel) under PA19>>>"
-      ],
-      "profile2_health_care": [
-        "<<<PASTE verbatim tasks for Profile 2 (Health and care workers) under PA19>>>"
-      ],
-      "profile3_allied": [
-        "<<<PASTE verbatim tasks for Profile 3 (Occupations allied to health) under PA19>>>"
-      ],
-      "profile4_senior_specialist": [
-        "<<<PASTE verbatim tasks for Profile 4 (Senior specialists) under PA19>>>"
-      ],
-      "profile5_policy_authority": [
-        "<<<PASTE verbatim tasks for Profile 5 (Policy authorities) under PA19>>>"
-      ]
+      "profile1_core_ph": [],
+      "profile2_health_care": [],
+      "profile3_allied": [],
+      "profile4_senior_specialist": [],
+      "profile5_policy_authority": []
     },
-    "curricular_guide": [
-      {
-        "id": "pa19_cg_001",
-        "text": "<<<PASTE a curricular item exactly as written under PA19’s Curricular guide>>>",
-        "profiles": { "1": true, "2": false, "3": false, "4": true, "5": true }
-      },
-      {
-        "id": "pa19_cg_002",
-        "text": "<<<Next curricular item>>>",
-        "profiles": { "1": true, "2": true, "3": false, "4": true, "5": false }
-      },
-      {
-        "id": "pa19_cg_003",
-        "text": "<<<Next curricular item>>>",
-        "profiles": { "1": false, "2": true, "3": true, "4": false, "5": false }
-      }
-    ]
+    "curricular_guide": []
+  },
+  "pa20": {
+    "title": "Communicating intelligence to decision-makers",
+    "tasks_by_profile": {
+      "profile1_core_ph": [],
+      "profile2_health_care": [],
+      "profile3_allied": [],
+      "profile4_senior_specialist": [],
+      "profile5_policy_authority": []
+    },
+    "curricular_guide": []
+  },
+  "pa21": {
+    "title": "Risk communication and community engagement",
+    "tasks_by_profile": {
+      "profile1_core_ph": [],
+      "profile2_health_care": [],
+      "profile3_allied": [],
+      "profile4_senior_specialist": [],
+      "profile5_policy_authority": []
+    },
+    "curricular_guide": []
+  },
+  "pa22": {
+    "title": "Planning public health programmes and services",
+    "tasks_by_profile": {
+      "profile1_core_ph": [],
+      "profile2_health_care": [],
+      "profile3_allied": [],
+      "profile4_senior_specialist": [],
+      "profile5_policy_authority": []
+    },
+    "curricular_guide": []
+  },
+  "pa23": {
+    "title": "Developing a stakeholder engagement strategy",
+    "tasks_by_profile": {
+      "profile1_core_ph": [],
+      "profile2_health_care": [],
+      "profile3_allied": [],
+      "profile4_senior_specialist": [],
+      "profile5_policy_authority": []
+    },
+    "curricular_guide": []
+  },
+  "pa24": {
+    "title": "Collaborating with stakeholders",
+    "tasks_by_profile": {
+      "profile1_core_ph": [],
+      "profile2_health_care": [],
+      "profile3_allied": [],
+      "profile4_senior_specialist": [],
+      "profile5_policy_authority": []
+    },
+    "curricular_guide": []
+  },
+  "pa25": {
+    "title": "Executing public health programmes and services",
+    "tasks_by_profile": {
+      "profile1_core_ph": [],
+      "profile2_health_care": [],
+      "profile3_allied": [],
+      "profile4_senior_specialist": [],
+      "profile5_policy_authority": []
+    },
+    "curricular_guide": []
+  },
+  "pa26": {
+    "title": "Advocacy for public health",
+    "tasks_by_profile": {
+      "profile1_core_ph": [],
+      "profile2_health_care": [],
+      "profile3_allied": [],
+      "profile4_senior_specialist": [],
+      "profile5_policy_authority": []
+    },
+    "curricular_guide": []
+  },
+  "pa27": {
+    "title": "Providing information and resources to improve community health and well-being",
+    "tasks_by_profile": {
+      "profile1_core_ph": [],
+      "profile2_health_care": [],
+      "profile3_allied": [],
+      "profile4_senior_specialist": [],
+      "profile5_policy_authority": []
+    },
+    "curricular_guide": []
+  },
+  "pa28": {
+    "title": "Developing and delivering public health campaigns",
+    "tasks_by_profile": {
+      "profile1_core_ph": [],
+      "profile2_health_care": [],
+      "profile3_allied": [],
+      "profile4_senior_specialist": [],
+      "profile5_policy_authority": []
+    },
+    "curricular_guide": []
+  },
+  "pa29": {
+    "title": "Monitoring, evaluation and reporting",
+    "tasks_by_profile": {
+      "profile1_core_ph": [],
+      "profile2_health_care": [],
+      "profile3_allied": [],
+      "profile4_senior_specialist": [],
+      "profile5_policy_authority": []
+    },
+    "curricular_guide": []
+  },
+  "pa30": {
+    "title": "Continuous quality improvement of programmes and services",
+    "tasks_by_profile": {
+      "profile1_core_ph": [],
+      "profile2_health_care": [],
+      "profile3_allied": [],
+      "profile4_senior_specialist": [],
+      "profile5_policy_authority": []
+    },
+    "curricular_guide": []
+  },
+  "pa31": {
+    "title": "Managing financial resources for public health programmes and services",
+    "tasks_by_profile": {
+      "profile1_core_ph": [],
+      "profile2_health_care": [],
+      "profile3_allied": [],
+      "profile4_senior_specialist": [],
+      "profile5_policy_authority": []
+    },
+    "curricular_guide": []
+  },
+  "pa32": {
+    "title": "Managing physical resources for public health programmes and services",
+    "tasks_by_profile": {
+      "profile1_core_ph": [],
+      "profile2_health_care": [],
+      "profile3_allied": [],
+      "profile4_senior_specialist": [],
+      "profile5_policy_authority": []
+    },
+    "curricular_guide": []
+  },
+  "pa33": {
+    "title": "Managing public health infrastructure",
+    "tasks_by_profile": {
+      "profile1_core_ph": [],
+      "profile2_health_care": [],
+      "profile3_allied": [],
+      "profile4_senior_specialist": [],
+      "profile5_policy_authority": []
+    },
+    "curricular_guide": []
+  },
+  "pa34": {
+    "title": "Managing personnel for the delivery of public health programmes and services",
+    "tasks_by_profile": {
+      "profile1_core_ph": [],
+      "profile2_health_care": [],
+      "profile3_allied": [],
+      "profile4_senior_specialist": [],
+      "profile5_policy_authority": []
+    },
+    "curricular_guide": []
+  },
+  "pa35": {
+    "title": "Providing education and training programmes for the public health workforce",
+    "tasks_by_profile": {
+      "profile1_core_ph": [],
+      "profile2_health_care": [],
+      "profile3_allied": [],
+      "profile4_senior_specialist": [],
+      "profile5_policy_authority": []
+    },
+    "curricular_guide": []
+  },
+  "pa36": {
+    "title": "Planning for risk management and emergency management actions",
+    "tasks_by_profile": {
+      "profile1_core_ph": [],
+      "profile2_health_care": [],
+      "profile3_allied": [],
+      "profile4_senior_specialist": [],
+      "profile5_policy_authority": []
+    },
+    "curricular_guide": []
+  },
+  "pa37": {
+    "title": "Implementing risk management and emergency preparedness actions",
+    "tasks_by_profile": {
+      "profile1_core_ph": [],
+      "profile2_health_care": [],
+      "profile3_allied": [],
+      "profile4_senior_specialist": [],
+      "profile5_policy_authority": []
+    },
+    "curricular_guide": []
+  },
+  "pa38": {
+    "title": "Coordinating emergency response",
+    "tasks_by_profile": {
+      "profile1_core_ph": [],
+      "profile2_health_care": [],
+      "profile3_allied": [],
+      "profile4_senior_specialist": [],
+      "profile5_policy_authority": []
+    },
+    "curricular_guide": []
+  },
+  "pa39": {
+    "title": "Providing health services as part of emergency response",
+    "tasks_by_profile": {
+      "profile1_core_ph": [],
+      "profile2_health_care": [],
+      "profile3_allied": [],
+      "profile4_senior_specialist": [],
+      "profile5_policy_authority": []
+    },
+    "curricular_guide": []
+  },
+  "pa40": {
+    "title": "Coordinating service continuity and equitable recovery",
+    "tasks_by_profile": {
+      "profile1_core_ph": [],
+      "profile2_health_care": [],
+      "profile3_allied": [],
+      "profile4_senior_specialist": [],
+      "profile5_policy_authority": []
+    },
+    "curricular_guide": []
   }
 }
