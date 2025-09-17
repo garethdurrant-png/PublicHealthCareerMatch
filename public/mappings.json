@@ -1,16 +1,31 @@
 {
-  "ephf_to_pa": {
-    "ephf01": ["pa10","pa11","pa12","pa13","pa14","pa16","pa19","pa20","pa29","pa30"],
-    "ephf02": ["pa15","pa17","pa36","pa37","pa38","pa39","pa40","pa20","pa21"],
-    "ephf03": ["pa01","pa03","pa04","pa05","pa06","pa09","pa22","pa29","pa30"],
-    "ephf04": ["pa03","pa04","pa05","pa06","pa22","pa23","pa24","pa31"],
-    "ephf05": ["pa05","pa09","pa15","pa17","pa21","pa36","pa37","pa38"],
-    "ephf06": ["pa12","pa13","pa14","pa16","pa19","pa22","pa25","pa28"],
-    "ephf07": ["pa26","pa27","pa28","pa21","pa23","pa24"],
-    "ephf08": ["pa02","pa21","pa23","pa24","pa27","pa28"],
-    "ephf09": ["pa07","pa35","pa34"],
-    "ephf10": ["pa29","pa30","pa33","pa22","pa24","pa27"],
-    "ephf11": ["pa10","pa11","pa12","pa13","pa14","pa19","pa20","pa29"],
-    "ephf12": ["pa08","pa31","pa32","pa33","pa09"]
+  "ephf_labels": {
+    "ephf01": "Public health surveillance and monitoring",
+    "ephf02": "Public health emergency management",
+    "ephf03": "Public health stewardship",
+    "ephf04": "Multisectoral planning, financing and management for public health",
+    "ephf05": "Health protection",
+    "ephf06": "Disease prevention and early detection",
+    "ephf07": "Health promotion",
+    "ephf08": "Community engagement and social participation",
+    "ephf09": "Public health workforce development",
+    "ephf10": "Health service quality and equity",
+    "ephf11": "Public health research, evaluation and knowledge",
+    "ephf12": "Access to and utilization of health products, supplies, equipment and technologies"
+  },
+
+  "ephf_to_pas": {
+    "ephf01": ["pa10","pa11","pa12","pa13","pa14","pa16","pa18","pa19","pa20"],
+    "ephf02": ["pa15","pa17","pa29","pa36","pa37","pa38","pa39","pa40","pa20"],
+    "ephf03": ["pa01","pa02","pa03","pa04","pa05","pa06","pa07","pa26"],
+    "ephf04": ["pa22","pa23","pa24","pa31","pa32","pa33"],
+    "ephf05": ["pa36","pa37","pa38","pa39","pa25","pa26"],
+    "ephf06": ["pa12","pa13","pa14","pa27","pa28","pa29","pa30"],
+    "ephf07": ["pa27","pa28","pa26","pa25","pa30"],
+    "ephf08": ["pa02","pa23","pa24","pa27","pa28"],
+    "ephf09": ["pa07","pa34","pa35"],
+    "ephf10": ["pa22","pa25","pa30","pa31","pa32","pa33","pa40"],
+    "ephf11": ["pa12","pa13","pa14","pa18","pa19","pa20"],
+    "ephf12": ["pa08","pa09","pa33","pa40"]
   }
 }
