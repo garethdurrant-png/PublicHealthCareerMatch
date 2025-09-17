@@ -1,27 +1,42 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Public Health Career Match</title>
-  <link rel="stylesheet" href="styles.css" />
-</head>
-<body>
-  <main id="app"></main>
-
-  <script type="module">
-    import { runWizard } from './app.js';
-
-    // bump this anytime you update JSON files to beat caches
-    const v = 'v=20250917-3';
-
-    runWizard({
-      questionsUrl: '/questions.json?' + v,
-      rolesUrl: '/roles.json?' + v,
-      scoringConfigUrl: '/scoring_config.json?' + v,
-      mappingsUrl: '/mappings.json?' + v,
-      paIndexUrl: '/data/pa_index.json?' + v
-    });
-  </script>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Public Health Program Builder</title>
+    <link rel="stylesheet" href="./styles.css?v=2025-09-17-1" />
+    <style>
+      /* lightweight helpers in case styles.css misses something */
+      :root { --bg:#fff; --text:#111; --muted:#666; --pill:#f3f4f6; }
+      body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:var(--bg); color:var(--text); }
+      main { max-width: 980px; margin: 32px auto 80px; padding: 0 20px; }
+      h1 { font-size: 28px; line-height:1.2; margin: 0 0 10px; }
+      h2 { font-size: 20px; margin: 24px 0 10px; }
+      .card { background:#fff; border:1px solid #eee; border-radius:14px; padding:22px; box-shadow: 0 1px 2px rgba(0,0,0,.04); }
+      .row { display:flex; gap:12px; flex-wrap:wrap; }
+      .pill { display:inline-flex; align-items:center; gap:8px; border:1px solid #ddd; background:var(--pill); padding:8px 12px; border-radius:999px; cursor:pointer; user-select:none; }
+      .pill.selected { border-color:#111; background:#111; color:#fff; }
+      .toolbar { display:flex; gap:12px; align-items:center; justify-content:space-between; margin-top:16px; }
+      .muted { color:var(--muted); font-size: 13px; }
+      .actions { display:flex; gap:10px; margin-top:18px; }
+      button { border:0; background:#111; color:#fff; border-radius:10px; padding:10px 16px; cursor:pointer; }
+      button.ghost { background:#eee; color:#111; }
+      input[type="search"] { width:100%; padding:10px 12px; border-radius:10px; border:1px solid #ddd; font-size:14px; }
+      .list ul { margin:8px 0 0 18px; }
+      .hr { height:1px; background:#eee; margin:18px 0; }
+      .badge { display:inline-block; font-size:12px; background:#eef2ff; color:#243a8f; padding:3px 8px; border-radius:999px; margin-left:8px;}
+      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size:12px; }
+      .bar { height:8px; background:linear-gradient(90deg,#111,#666); border-radius:999px; flex: 1 1 auto; }
+      .kv { display:grid; grid-template-columns: 160px 1fr; gap:10px 14px; }
+    </style>
+  </head>
+  <body>
+    <main id="app">
+      <!-- app.js will render here -->
+    </main>
+    <script defer src="./app.js?v=2025-09-17-3"></script>
+  </body>
 </html>
