@@ -1,6 +1,18 @@
 {
   "questions": [
     {
+      "id": "q_mode",
+      "type": "single",
+      "required": true,
+      "prompt": "Who are you?",
+      "maps_to": "mode",
+      "options": [
+        { "id": "educator", "label": "Educator / programme designer" },
+        { "id": "learner",  "label": "Learner / student" }
+      ]
+    },
+
+    {
       "id": "q_ephf",
       "type": "multiselect",
       "max_select": 3,
@@ -26,67 +38,27 @@
     {
       "id": "q_profile",
       "type": "single",
-      "required": true,
+      "required": false,
+      "show_if": { "mode": "educator" },
       "prompt": "Which illustrative profile best fits your current (or intended) role?",
       "maps_to": "profile",
       "options": [
-        { "id": "profile1_core_ph", "label": "Core public health personnel (1)" },
+        { "id": "profile1_core_ph",     "label": "Core public health personnel (1)" },
         { "id": "profile2_health_care", "label": "Health and care workers (2)" },
-        { "id": "profile3_allied", "label": "Occupations allied to health (3)" },
-        { "id": "profile4_senior_specialist", "label": "Senior specialists (4)" },
-        { "id": "profile5_policy_authority", "label": "Policy authorities (5)" }
+        { "id": "profile3_allied",      "label": "Occupations allied to health (3)" },
+        { "id": "profile4_specialists", "label": "Senior specialists (4)" },
+        { "id": "profile5_authority",   "label": "Policy authorities (5)" }
       ]
     },
 
     {
-      "id": "q_pa",
+      "id": "q_pas",
       "type": "multiselect",
       "max_select": 3,
       "required": false,
-      "prompt": "Which practice activities sound appealing? (Pick up to 3)",
-      "maps_to": "practice_activity",
-      "options": [
-        { "id": "pa01", "label": "Establishing and maintaining public health governance mechanisms" },
-        { "id": "pa02", "label": "Establishing and maintaining mechanisms for community engagement and social participation" },
-        { "id": "pa03", "label": "Setting public health strategies" },
-        { "id": "pa04", "label": "Developing and operationalizing policy with public health impact" },
-        { "id": "pa05", "label": "Developing and operationalizing legislative and regulatory frameworks with public health impact" },
-        { "id": "pa06", "label": "Optimizing resource allocations within multisectoral financing mechanisms" },
-        { "id": "pa07", "label": "Optimizing the workforce for the delivery of the EPHFs" },
-        { "id": "pa08", "label": "Managing the supply chain" },
-        { "id": "pa09", "label": "Quality assurance of public health infrastructure" },
-        { "id": "pa10", "label": "Establishing and updating public health information and informatics systems" },
-        { "id": "pa11", "label": "Establishing and updating public health intelligence systems" },
-        { "id": "pa12", "label": "Planning investigations for public health" },
-        { "id": "pa13", "label": "Designing and adapting instruments, tools and methods for data collection" },
-        { "id": "pa14", "label": "Gathering qualitative and quantitative data for investigations for public health" },
-        { "id": "pa15", "label": "Conducting risk assessments and emergency preparedness assessments" },
-        { "id": "pa16", "label": "Maintaining continuous data surveillance and monitoring mechanisms" },
-        { "id": "pa17", "label": "Conducting a rapid risk assessment" },
-        { "id": "pa18", "label": "Conducting a public health situation analysis" },
-        { "id": "pa19", "label": "Analysing and interpreting data, information and evidence" },
-        { "id": "pa20", "label": "Communicating intelligence to decision-makers" },
-        { "id": "pa21", "label": "Risk communication and community engagement" },
-        { "id": "pa22", "label": "Planning public health programmes and services" },
-        { "id": "pa23", "label": "Developing a stakeholder engagement strategy" },
-        { "id": "pa24", "label": "Collaborating with stakeholders" },
-        { "id": "pa25", "label": "Executing public health programmes and services" },
-        { "id": "pa26", "label": "Advocacy for public health" },
-        { "id": "pa27", "label": "Providing information and resources to improve community health and well-being" },
-        { "id": "pa28", "label": "Developing and delivering public health campaigns" },
-        { "id": "pa29", "label": "Monitoring, evaluation and reporting" },
-        { "id": "pa30", "label": "Continuous quality improvement of programmes and services" },
-        { "id": "pa31", "label": "Managing financial resources for public health programmes and services" },
-        { "id": "pa32", "label": "Managing physical resources for public health programmes and services" },
-        { "id": "pa33", "label": "Managing public health infrastructure" },
-        { "id": "pa34", "label": "Managing personnel for the delivery of public health programmes and services" },
-        { "id": "pa35", "label": "Providing education and training programmes for the public health workforce" },
-        { "id": "pa36", "label": "Planning for risk management and emergency management actions" },
-        { "id": "pa37", "label": "Implementing risk management and emergency preparedness actions" },
-        { "id": "pa38", "label": "Coordinating emergency response" },
-        { "id": "pa39", "label": "Providing health services as part of emergency response" },
-        { "id": "pa40", "label": "Coordinating service continuity and equitable recovery" }
-      ]
+      "prompt": "Which practice activities sound appealing? (Optional – Pick up to 3)",
+      "maps_to": "pa_pref",
+      "options_from": "pa_index" 
     }
   ]
 }
