@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Public Health Career Match</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <main id="app"></main>
@@ -12,12 +12,16 @@
   <script type="module">
     import { runWizard } from './app.js';
 
-    // Keep it simple: root-relative paths, no query strings
+    // Bump this string whenever you update any JSON in /public or /public/data
+    const v = 'v=20250917-3';
+
     runWizard({
-      questionsUrl: '/questions.json',
-      rolesUrl: '/roles.json',
-      scoringConfigUrl: '/scoring_config.json',
-      mappingsUrl: '/mappings.json'
+      questionsUrl: '/questions.json?' + v,
+      rolesUrl: '/roles.json?' + v,
+      scoringConfigUrl: '/scoring_config.json?' + v,
+      mappingsUrl: '/mappings.json?' + v
+      // If your app.js accepts it, you can also pass the PA index explicitly:
+      // paIndexUrl: '/data/pa_index.json?' + v
     });
   </script>
 </body>
